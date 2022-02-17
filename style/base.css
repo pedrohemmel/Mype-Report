@@ -1,0 +1,179 @@
+/*CLASSES PRONTAS*/
+.positionRelative {
+    position: relative;
+}
+
+.positionAbsolute {
+    position: absolute;
+}
+
+.positionFixed {
+    position: fixed;
+}
+
+.displayNone {
+    display: none;
+}
+
+.displayBlkRed {
+    color: #f00;
+}
+
+.displayBlkGreen {
+    color: #0a0;
+}
+
+.displayBlock {
+    display: block;
+}
+
+.displayFlex {
+    display: flex;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.flex-direction-row {
+    flex-direction: row;
+}
+
+.linkIcon {
+    font-size: 1.5em;
+}
+
+.background-primary-color {
+    background-color: #843aad;
+}
+
+.background-secondary-color {
+    background-color: rgb(238, 238, 238);
+}
+
+.color-white {
+    color: #fff;
+}
+
+.color-black {
+    color: #000;
+}
+
+.text-decoration-none {
+    text-decoration: none;
+}
+
+.vertical-space-around {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.maxVhHeight {
+    height: 100vh;
+}
+
+.maxHeight {
+    height: 100%;
+}
+
+.maxWidth {
+    width: 100%;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+.padding-10-px {
+    padding: 10px;
+}
+
+.margin-top-bottom-2-em {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.border-radius-10-px {
+    border-radius: 10px;
+}
+
+.tituloPaginas {
+
+    width: 80%;
+    margin: 2em auto;
+    
+}
+
+.iconAdd {
+    padding: 5px 10px;
+}
+
+.tamanhoConteudo {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/*gerenciamentoSist.php*/
+
+.registrosSist {
+    padding: 0;
+}
+
+.navBase {
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+
+    transition: 0.5s;
+}
+
+.navBase a {
+    width: 100%;
+
+    padding: 10px;
+}
+
+.displayNoneNav {
+    display: none;
+}
+
+.displayBlockNav {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.iconAbreFecha {
+   padding: 5px 10px;
+
+   border-bottom-right-radius: 10px;
+}
+
+
+
+.conteudoSist {
+    width: 100%;
+    
+}
+
+.sectionEmpresa {
+    width: 100%;
+}
+
+/*gerenciamentoSist.php*/
