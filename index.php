@@ -13,10 +13,10 @@ página de cadastro de administrador*/
 
 if(!$UsuarioAdministradorDao->verifyRow()) {
     $_SESSION['cadastroAdm'] = true;
-    header('Location:cadastrarAdm.php');
+    header('Location:cadastrar/cadastrarAdm.php');
     exit;
 } else {
-    header('Location:login.php');
+    header('Location:login/login.php');
     exit;
 }
 

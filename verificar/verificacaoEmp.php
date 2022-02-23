@@ -29,7 +29,7 @@ if($EmpresasDao->verifyRowById($id_emp)) {
         $_SESSION['situacao_emp'] = $getEmpresa->getSituacaoEmp();
     }  
 
-    header('Location:../editarEmp.php');
+    header('Location:../editar/editarEmp.php');
     exit;
     
 } else {
