@@ -3,7 +3,7 @@
 session_start();
 
 if(!$_SESSION['cadastroAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 }
 
@@ -32,7 +32,7 @@ if(!empty($erroCadAdm)) {
 <body>
     <!--Formulário de cadastro do usuário administrador-->
     <div class="container">
-        <form method="POST" action="cadastrarAdm_action.php">
+        <form method="POST" action="../cadastrar/cadastrarAdm_action.php">
             <p class="<?=$classeNone?>"><?=$mensagem?></p>
             <input type="text" name="nome_adm" placeholder="Digite seu nome completo" maxlength="50" required>
             <br><br>
@@ -53,6 +53,6 @@ if(!empty($erroCadAdm)) {
         </form>
     </div>
     
-    <script src="js/cadastrarAdmScript.js"></script>
+    <script src="../js/cadastrarAdmScript.js"></script>
 </body>
 </html>

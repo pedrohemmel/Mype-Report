@@ -29,11 +29,11 @@ if(!empty($msgCadAdm)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style/base.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
 </head>
 <body>
     <div class="container">
-        <form method="POST" action="verificarUsuario.php">
+        <form method="POST" action="../verificar/verificarUsuario.php">
             <p class="<?=$classeNone?>"><?=$mensagem?></p>
             <input type="text" name="username_email_usu" placeholder="Digite seu username ou e-mail" maxlength="75" required>
             <br><br>
@@ -42,7 +42,7 @@ if(!empty($msgCadAdm)) {
             <input type="submit" value="Entrar">
         </form>
         <hr>
-        <a href="recuperarSenha.php">Esqueci a senha</a>
+        <a href="../recuperarSenha/recuperarSenha.php">Esqueci a senha</a>
     </div>
 </body>
 </html>

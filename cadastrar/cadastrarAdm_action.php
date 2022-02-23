@@ -2,11 +2,11 @@
 
 session_start();
 
-require 'config.php';
-require 'dao/UsuarioAdministradorDaoMysql.php';
+require '../config.php';
+require '../dao/UsuarioAdministradorDaoMysql.php';
 
 if(!$_SESSION['cadastroAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 }
 
@@ -48,24 +48,24 @@ if($nome_adm && $username_adm && $telefone_adm && $email_adm_ctt && $email_adm &
             $_SESSION['msgCadAdm'] = 'Usuario cadastrado com sucesso';
             $_SESSION['msgCadAdmCrypt'] = password_hash($_SESSION['msgCadAdm'], PASSWORD_DEFAULT);
 
-            header('Location:login.php?msgCadAdm='.$_SESSION['msgCadAdmCrypt']);
+            header('Location:../login/login.php?msgCadAdm='.$_SESSION['msgCadAdmCrypt']);
             exit;
         } else {
-            header('Location:index.php');
+            header('Location:../index.php');
             exit;
         }
     } else {
         $_SESSION['erroCadAdm'] = 'Os dados foram inseridos incorretamente.';
         $_SESSION['erroCadAdmCrypt'] = password_hash($_SESSION['erroCadAdm'], PASSWORD_DEFAULT);
 
-        header('Location:cadastrarAdm.php?erroCadAdm='.$_SESSION['erroCadAdmCrypt']);
+        header('Location:../cadastrar/cadastrarAdm.php?erroCadAdm='.$_SESSION['erroCadAdmCrypt']);
         exit;
     } 
 } else {
     $_SESSION['erroCadAdm'] = 'Os dados estão incompletos.';
     $_SESSION['erroCadAdmCrypt'] = password_hash($_SESSION['erroCadAdm'], PASSWORD_DEFAULT);
     
-    header('Location:cadastrarAdm.php?erroCadAdm='.$_SESSION['erroCadAdmCrypt']);
+    header('Location:../cadastrar/cadastrarAdm.php?erroCadAdm='.$_SESSION['erroCadAdmCrypt']);
     exit;
 }
 ?>

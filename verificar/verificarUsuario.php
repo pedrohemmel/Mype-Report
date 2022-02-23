@@ -1,7 +1,7 @@
 <?php
-require 'config.php';
-require 'dao/UsuariosDaoMysql.php';
-require 'dao/UsuarioAdministradorDaoMysql.php';
+require '../config.php';
+require '../dao/UsuariosDaoMysql.php';
+require '../dao/UsuarioAdministradorDaoMysql.php';
 
 session_start();
 $_SESSION['loggedUsu'] = $_SESSION['loggedUsu'] ?? false;
@@ -37,7 +37,7 @@ if($username_email_usu && $senha_usu) {
             $_SESSION['erroLogin'] = 'Os dados de cadastro do usuário está incompleto.';
             $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-            header('Location:login.php?erroLogin='.$erroLoginCrypt);
+            header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
             exit;
 
         }
@@ -63,7 +63,7 @@ if($username_email_usu && $senha_usu) {
                 $_SESSION['erroLogin'] = 'Usuário ou senha incorretos.';
                 $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-                header('Location:login.php?erroLogin='.$erroLoginCrypt);
+                header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
                 exit;
             }
         } else if($perfil === 'adm') {
@@ -78,14 +78,14 @@ if($username_email_usu && $senha_usu) {
                 $_SESSION['erroLogin'] = 'Usuário ou senha incorretos.';
                 $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-                header('Location:login.php?erroLogin='.$erroLoginCrypt);
+                header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
                 exit;
             }
         } else {
             $_SESSION['erroLogin'] = 'Os dados de cadastro do usuário está incompleto.';
             $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-            header('Location:login.php?erroLogin='.$erroLoginCrypt);
+            header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
             exit;
         }
         
@@ -108,7 +108,7 @@ if($username_email_usu && $senha_usu) {
             $_SESSION['erroLogin'] = 'Os dados de cadastro do usuário está incompleto.';
             $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-            header('Location:login.php?erroLogin='.$erroLoginCrypt);
+            header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
             exit;
             
         }
@@ -126,13 +126,13 @@ if($username_email_usu && $senha_usu) {
             $_SESSION['senha'] = $senha;
             $_SESSION['nome'] = $nome;
             $_SESSION['loggedAdm'] = true;
-            header('Location:gerenciamentoSist.php');
+            header('Location:../gerenciamentoSist/gerenciamentoSist.php');
             exit;
         } else {
             $_SESSION['erroLogin'] = 'Usuário ou senha incorretos.';
             $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-            header('Location:login.php?erroLogin='.$erroLoginCrypt);
+            header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
             exit;
         }
 
@@ -141,14 +141,14 @@ if($username_email_usu && $senha_usu) {
         $_SESSION['erroLogin'] = 'Usuário ou senha incorretos.';
         $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-        header('Location:login.php?erroLogin='.$erroLoginCrypt);
+        header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
         exit;
     }
 } else {
     $_SESSION['erroLogin'] = 'Os dados estão incorretos.';
     $erroLoginCrypt = password_hash($_SESSION['erroLogin'], PASSWORD_DEFAULT);
 
-    header('Location:login.php?erroLogin='.$erroLoginCrypt);
+    header('Location:../login/login.php?erroLogin='.$erroLoginCrypt);
     exit;
 }
 

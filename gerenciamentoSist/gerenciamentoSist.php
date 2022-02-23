@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require 'config.php';
-require 'dao/UsuarioAdministradorDaoMysql.php';
-require 'dao/UsuariosDaoMysql.php';
-require 'dao/EmpresasDaoMysql.php';
+require '../config.php';
+require '../dao/UsuarioAdministradorDaoMysql.php';
+require '../dao/UsuariosDaoMysql.php';
+require '../dao/EmpresasDaoMysql.php';
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 } else {
     $logged = 'ativo';
@@ -130,7 +130,7 @@ if(!empty($chaveDispSections)) {
         $_SESSION['erroMsgGerenSist'] = 'tempo limite';
         $_SESSION['erroMsgGerenSistCrypt'] = password_hash($_SESSION['erroMsgGerenSist'], PASSWORD_DEFAULT);
 
-        header('Location:index.php?erroMsgGerenSist='.$_SESSION['erroMsgGerenSistCrypt']);
+        header('Location:../index.php?erroMsgGerenSist='.$_SESSION['erroMsgGerenSistCrypt']);
         exit;
 
     }
@@ -151,7 +151,7 @@ if(!empty($chaveDispSections)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <!--STYLE-->
-    <link rel="stylesheet" href="style/base.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
 
 </head>
 <body>
@@ -160,7 +160,7 @@ if(!empty($chaveDispSections)) {
         <div class="row maxWidth">
             <div class="col-1 background-secondary-color maxVhHeight overflow-auto vertical-space-around ">
 
-                <a href="registroEditUsuarios_action.php?chave=<?=$_SESSION['registrosSistemaCrypt']?>" class="bi bi-people linkIcon color-black"></a>
+                <a href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['registrosSistemaCrypt']?>" class="bi bi-people linkIcon color-black"></a>
                 
                 <a href="" class="bi bi-gear linkIcon color-black"></a>
                 
@@ -172,9 +172,9 @@ if(!empty($chaveDispSections)) {
                     <nav class="displayFlex flex-direction-row">
                         <div class="navBase background-primary-color displayFlex flex-direction-row justify-content-center">
                             <a class="background-secondary-color text-decoration-none color-black linkAcessoRegistros" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="registroEditUsuarios_action.php?chave=<?=$_SESSION['indicadoresCrypt']?>">Indicadores</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
+                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['indicadoresCrypt']?>">Indicadores</a>
+                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
+                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
                         </div>
                         <span>
                             <i onclick="abreFechaNav()" class="bi bi-list linkIcon iconAbreFecha"></i>
@@ -198,10 +198,10 @@ if(!empty($chaveDispSections)) {
                                 </thead>
                                 <tbody class="background-secondary-color">
                                     <tr class="<?=$linkAdministrador?>">
-                                        <td class="padding-10-px"><a  class="color-black text-decoration-none" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['administradorGruposAcessoCrypt']?>">Administrador</a></td>
+                                        <td class="padding-10-px"><a  class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['administradorGruposAcessoCrypt']?>">Administrador</a></td>
                                     </tr>
                                     <tr class="<?=$classeAdministradorGruposAcesso?>">
-                                        <td class="padding-10-px"><a  class="color-black text-decoration-none" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaAdministradorGruposAcessoCrypt']?>">Administrador</a></td>
+                                        <td class="padding-10-px"><a  class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaAdministradorGruposAcessoCrypt']?>">Administrador</a></td>
                                     </tr>
                                     <?php foreach($usuariosAdministrador as $getUsuariosAdministrador):?>
                                         <tr class="<?=$classeAdministradorGruposAcesso?>">
@@ -214,10 +214,10 @@ if(!empty($chaveDispSections)) {
                                         </tr>
                                     <?php endforeach; ?>
                                     <tr class="<?=$linkUsuarios?>">
-                                        <td class="padding-10-px"><a class="color-black text-decoration-none" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosGruposAcessoCrypt']?>">Usuário</a></td>
+                                        <td class="padding-10-px"><a class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosGruposAcessoCrypt']?>">Usuário</a></td>
                                     </tr>
                                     <tr class="<?=$classeUsuariosGruposAcesso?>">
-                                        <td class="padding-10-px"><a class="color-black text-decoration-none" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaUsuariosGruposAcessoCrypt']?>">Usuário</a></td>
+                                        <td class="padding-10-px"><a class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaUsuariosGruposAcessoCrypt']?>">Usuário</a></td>
                                     </tr>
                                     <?php foreach($usuarios as $getUsuarios):?>
                                     <tr class="<?=$classeUsuariosGruposAcesso?>">
@@ -236,7 +236,7 @@ if(!empty($chaveDispSections)) {
                                 <h2>Empresas</h2>
                             </div>
                             <div class="tamanhoConteudo addEmpresa displayFlex flex-direction-row align-items-center">
-                                <a href="cadastrarEmpresa.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
+                                <a href="../cadastrar/cadastrarEmpresa.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
                                 <p style="margin: 0;">Adicionar uma nova empresa</p>
                             </div>
                             <section class="tamanhoConteudo displayFlex flex-direction-row justify-content-center">
@@ -251,7 +251,7 @@ if(!empty($chaveDispSections)) {
                                     <img width="80%" src="<?=$getEmpresas->getLogoEmp();?>" class="border-radius-10-px" alt="logo"/>
                                     <h6><?=$getEmpresas->getNomeFantasiaEmp();?></h6>
                                     <div class="displayFlex flex-direction-row align-items-center justify-content-center">
-                                        <a href="verMaisEmp_action.php?id=<?=$getEmpresas->getIdEmp()?>">Ver mais</a>  
+                                        <a href="../verMais/verMaisEmp_action.php?id=<?=$getEmpresas->getIdEmp()?>">Ver mais</a>  
                                         
                                     </div>
                                     
@@ -272,6 +272,6 @@ if(!empty($chaveDispSections)) {
         </div>
     </main>
 
-    <script src="js/gerenciamentoSist.js"></script>
+    <script src="../js/gerenciamentoSist.js"></script>
 </body>
 </html>

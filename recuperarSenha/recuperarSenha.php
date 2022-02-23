@@ -1,8 +1,8 @@
 
 <?php
-require 'config.php';
-require 'dao/UsuariosDaoMysql.php';
-require 'dao/UsuarioAdministradorDaoMysql.php';
+require '../config.php';
+require '../dao/UsuariosDaoMysql.php';
+require '../dao/UsuarioAdministradorDaoMysql.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -52,7 +52,7 @@ if(!empty($email_usu)) {
 
         $UsuariosDao->updateRecuperarSenha($usuario_recuperar_senha);
         
-        $link = 'http://localhost/saas-report/atualizarSenha.php?chave='.$chave_recuperar_senha;
+        $link = 'http://localhost/saas-report/recuperarSenha/atualizarSenha.php?chave='.$chave_recuperar_senha;
 
         try {
             //$mail->SMTPDebug = SMTP::DEBUG_SERVER;   
@@ -65,7 +65,7 @@ if(!empty($email_usu)) {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;   
             $mail->Port       = 2525; 
 
-            $mail->AddEmbeddedImage('assets/img/logoSaas.png', 'logo_saas');
+            $mail->AddEmbeddedImage('../img/logo.jpg', 'Logo');
 
             $mail->setFrom('atendimento@mailtrap.com', 'Atendimento');
             $mail->addAddress($email_usu, $nome_usu);  
@@ -205,8 +205,7 @@ $mensagem = $_SESSION['msg'];
     <!--BOOTSTRAP-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--ARQUIVO CSS-->
-    <link rel="stylesheet" href="style/base.css"/>
-    <link rel="stylesheet" href="style/recuperarSenha.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
     <!--FONTE MARCELLUS-SC-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -217,7 +216,7 @@ $mensagem = $_SESSION['msg'];
     <main class="container">
       
     
-        <form method="POST" action="recuperarSenha.php"> <!--ENVIA OS DADOS PARA VERIFICAR SE ESSE USUARIO EXISTE E SE ELE TEM ACESSO AO RELATORIO-->
+        <form method="POST" action="../recuperarSenha/recuperarSenha.php"> <!--ENVIA OS DADOS PARA VERIFICAR SE ESSE USUARIO EXISTE E SE ELE TEM ACESSO AO RELATORIO-->
             <p class="<?=$classeNone?> text-center"><?=$mensagem?></p>
 
             <input class="inputAlt maxWidth" type="text" name="email_usu" placeholder="Digite o email para recuperação de senha" required>
@@ -230,7 +229,7 @@ $mensagem = $_SESSION['msg'];
 
         <hr>
 
-        <a class="noDecorations color-primary text-center link-color-primary" href="login.php">Fazer login</a>
+        <a class="noDecorations color-primary text-center link-color-primary" href="../login/login.php">Fazer login</a>
     
         
     </main>

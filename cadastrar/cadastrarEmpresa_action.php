@@ -3,12 +3,12 @@
 session_start();
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 }
 
-require 'config.php';
-require 'dao/EmpresasDaoMysql.php';
+require '../config.php';
+require '../dao/EmpresasDaoMysql.php';
 
 $EmpresasDao = new EmpresasDaoMysql($pdo);
 
@@ -22,7 +22,7 @@ if(!$_SESSION['situacao_emp']) {
 if(!empty($_SESSION['path'])) {
     $logo = $_SESSION['path'];
 } else {
-    $logo = 'img/logoPadrao.png';
+    $logo = '../img/logoPadrao.png';
 }
 
 if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fantasia_emp'] && $_SESSION['endereco_emp'] && $situacao_emp) {
@@ -30,7 +30,7 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
         $_SESSION['erroCadEmp'] = 'Já existe uma empresa com esses dados no sistema.';
         $_SESSION['erroCadEmpCrypt'] = password_hash($_SESSION['erroCadEmp'], PASSWORD_DEFAULT);
 
-        header('Location:cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
+        header('Location:../cadastrar/cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
         exit;
     } else {
         $e = new Empresas;
@@ -49,14 +49,14 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
         $_SESSION['msgCadEmp'] = 'Empresa cadastrada com sucesso!';
         $_SESSION['msgCadEmpCrypt'] = password_hash($_SESSION['msgCadEmp'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?msgCadEmp='.$_SESSION['msgCadEmpCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?msgCadEmp='.$_SESSION['msgCadEmpCrypt']);
         exit;
     }
 } else {
     $_SESSION['erroCadEmp'] = 'Os dados inseridos estão incompletos';
     $_SESSION['erroCadEmpCrypt'] = password_hash($_SESSION['erroCadEmp'], PASSWORD_DEFAULT);
 
-    header('Location:cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
+    header('Location:../cadastrar/cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
     exit;
 }
 

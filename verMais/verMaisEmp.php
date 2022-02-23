@@ -3,7 +3,7 @@
 session_start();
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 } else {
     $logged = 'ativo';
@@ -19,7 +19,7 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
     $_SESSION['erroEmp'] = 'Não existe uma empresa com esse ID cadastrada no sistema.';
     $_SESSION['erroEmpCrypt'] = password_hash($_SESSION['erroEmp'], PASSWORD_DEFAULT);
 
-    header('Location:gerenciamentoSist.php?erroEmp='.$_SESSION['erroEmpCrypt']);
+    header('Location:../gerenciamentoSist/gerenciamentoSist.php?erroEmp='.$_SESSION['erroEmpCrypt']);
     exit;
 }
 
@@ -58,8 +58,8 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
                 <div class="col-12 col-md-6"><?=$_SESSION['endereco_emp'];?></div>
                 <div class="col-12 col-md-6">Situação: </div>
                 <div class="col-12 col-md-6"><?=$_SESSION['situacao_emp'];?></div> 
-                <div class="col-12 col-md-6"><a href="apagarEmp_action.php?id=<?=$_SESSION['id_emp']?>"><i class="bi bi-trash"></i>  Apagar</a></div>
-                <div class="col-12 col-md-6"><a href="verificacaoEmp.php?id=<?=$_SESSION['id_emp']?>"><i class="bi bi-pencil"></i> Editar</a></div> 
+                <div class="col-12 col-md-6"><a href="../apagar/apagarEmp_action.php?id=<?=$_SESSION['id_emp']?>"><i class="bi bi-trash"></i>  Apagar</a></div>
+                <div class="col-12 col-md-6"><a href="../verificar/verificacaoEmp.php?id=<?=$_SESSION['id_emp']?>"><i class="bi bi-pencil"></i> Editar</a></div> 
             </div>
            
         </div>

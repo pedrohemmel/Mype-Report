@@ -3,7 +3,7 @@
 session_start();
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 }
 
@@ -31,7 +31,7 @@ if(!empty($chave)) {
         $_SESSION['displayRegistrosSistema'] = 'DRSativo';
         $_SESSION['displayRegistrosSistemaCrypt'] = password_hash($_SESSION['displayRegistrosSistema'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayRegistrosSistemaCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayRegistrosSistemaCrypt']);
         exit;
 
     } else if(password_verify($_SESSION['gruposAcesso'], $chave)) {
@@ -39,7 +39,7 @@ if(!empty($chave)) {
         $_SESSION['displayGruposAcesso'] = 'DGAativo';
         $_SESSION['displayGruposAcessoCrypt'] = password_hash($_SESSION['displayGruposAcesso'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayGruposAcessoCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayGruposAcessoCrypt']);
         exit;
 
     } else if(password_verify($_SESSION['indicadores'], $chave)) {
@@ -47,7 +47,7 @@ if(!empty($chave)) {
         $_SESSION['displayIndicadores'] = 'DIativo';
         $_SESSION['displayIndicadoresCrypt'] = password_hash($_SESSION['displayIndicadores'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayIndicadoresCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayIndicadoresCrypt']);
         exit;
         
     } else if(password_verify($_SESSION['empresas'], $chave)) {
@@ -55,7 +55,7 @@ if(!empty($chave)) {
         $_SESSION['displayEmpresas'] = 'DEativo';
         $_SESSION['displayEmpresasCrypt'] = password_hash($_SESSION['displayEmpresas'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayEmpresasCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayEmpresasCrypt']);
         exit;
         
     } else if(password_verify($_SESSION['usuarios'], $chave)) {
@@ -63,7 +63,7 @@ if(!empty($chave)) {
         $_SESSION['displayUsuarios'] = 'DUativo';
         $_SESSION['displayUsuariosCrypt'] = password_hash($_SESSION['displayUsuarios'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayUsuariosCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayUsuariosCrypt']);
         exit;
 
     }
@@ -75,33 +75,33 @@ if(!empty($chave)) {
         $_SESSION['displayUsuariosGruposAcesso'] = 'UGAativo';
         $_SESSION['displayUsuariosGruposAcessoCrypt'] = password_hash($_SESSION['displayUsuariosGruposAcesso'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayUsuariosGruposAcessoCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayUsuariosGruposAcessoCrypt']);
         exit;
 
     }else if(password_verify($_SESSION['fechaUsuariosGruposAcesso'], $chave)) {
         $_SESSION['displayFechaUsuariosGruposAcesso'] = 'UGAativo';
         $_SESSION['displayFechaUsuariosGruposAcessoCrypt'] = password_hash($_SESSION['displayFechaUsuariosGruposAcesso'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayFechaUsuariosGruposAcessoCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayFechaUsuariosGruposAcessoCrypt']);
         exit;
     } else if(password_verify($_SESSION['administradorGruposAcesso'], $chave)) {
 
         $_SESSION['displayAdministradorGruposAcesso'] = 'UGAativo';
         $_SESSION['displayAdministradorGruposAcessoCrypt'] = password_hash($_SESSION['displayAdministradorGruposAcesso'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayAdministradorGruposAcessoCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayAdministradorGruposAcessoCrypt']);
         exit;
 
     } else if(password_verify($_SESSION['fechaAdministradorGruposAcesso'], $chave)) {
         $_SESSION['displayFechaAdministradorGruposAcesso'] = 'UGAativo';
         $_SESSION['displayFechaAdministradorGruposAcessoCrypt'] = password_hash($_SESSION['displayFechaAdministradorGruposAcesso'], PASSWORD_DEFAULT);
 
-        header('Location:gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayFechaAdministradorGruposAcessoCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayFechaAdministradorGruposAcessoCrypt']);
         exit;
     }
 
 } else {
-    header('Location:gerenciamentoSist.php');
+    header('Location:../gerenciamentoSist/gerenciamentoSist.php');
     exit;
 }
 

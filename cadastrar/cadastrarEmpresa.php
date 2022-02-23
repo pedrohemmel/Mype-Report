@@ -3,7 +3,7 @@
 session_start();
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 }
 
@@ -26,7 +26,7 @@ if(isset($_FILES['logo_emp'])) {
     if($arquivo['size'] > 2097152) {
         die("Arquivo muito grande! Max: 2MB");
     } else {
-        $pasta = "img/";
+        $pasta = "../img/";
         $nomeDoArquivo = $arquivo['name'];
         $novoNomeDoArquivo = uniqid();
         $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
@@ -49,7 +49,7 @@ if(isset($_FILES['logo_emp'])) {
             $_SESSION['cor_sec_emp'] = filter_input(INPUT_POST, 'cor_sec_emp');
             $_SESSION['situacao_emp'] = filter_input(INPUT_POST, 'situacao_emp');
     
-            header('Location:cadastrarEmpresa_action.php');
+            header('Location:../cadastrar/cadastrarEmpresa_action.php');
             exit;
         }
     } else {
@@ -65,7 +65,7 @@ if(isset($_FILES['logo_emp'])) {
         $_SESSION['cor_sec_emp'] = filter_input(INPUT_POST, 'cor_sec_emp');
         $_SESSION['situacao_emp'] = filter_input(INPUT_POST, 'situacao_emp');
 
-        header('Location:cadastrarEmpresa_action.php');
+        header('Location:../cadastrar/cadastrarEmpresa_action.php');
         exit;
     }
 
@@ -89,7 +89,7 @@ if(isset($_FILES['logo_emp'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style/base.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
 </head>
 <body>
     <main>

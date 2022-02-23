@@ -3,20 +3,20 @@
 session_start();
 
 if(!$_SESSION['loggedAdm']) {
-    header('Location:index.php');
+    header('Location:../index.php');
     exit;
 } else {
     $logged = 'ativo';
 }
 
-require 'config.php';
-require 'dao/EmpresasDaoMysql.php';
+require '../config.php';
+require '../dao/EmpresasDaoMysql.php';
 
 if(!($_SESSION['id_emp'] && $_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fantasia_emp'] && $_SESSION['logo_emp'] && $_SESSION['endereco_emp'] && $_SESSION['situacao_emp'])) {
     $_SESSION['erroEmp'] = 'Erro ao encontrar empresa.';
     $_SESSION['erroEmpCrypt'] = password_hash($_SESSION['erroEmp'], PASSWORD_DEFAULT);
 
-    header('Location:gerenciamentoSist.php?erroEmp='.$_SESSION['erroEmpCrypt']);
+    header('Location:../gerenciamentoSist/gerenciamentoSist.php?erroEmp='.$_SESSION['erroEmpCrypt']);
     exit;
 }
 
@@ -47,7 +47,7 @@ $classeNone = 'displayNone';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar empresa</title>
-    <link rel="stylesheet" href="style/base.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
 </head>
 <body>
     <form action="" method="POST" enctype="multipart/form-data">
