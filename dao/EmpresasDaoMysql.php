@@ -120,6 +120,33 @@ class EmpresasDaoMysql implements EmpresasDAO {
         return $sql->rowCount() > 0;
     }
 
+    public function updateEmpresas(Empresas $e) {
+        $sql = $this->pdo->prepare("UPDATE tb_empresas SET
+        cnpj_emp = :cnpj_emp, 
+        razao_social_emp = :razao_social_emp, 
+        nome_fantasia_emp = :nome_fantasia_emp, 
+        logo_emp = :logo_emp, 
+        cor_pri_emp = :cor_pri_emp, 
+        cor_sec_emp = :cor_sec_emp, 
+        endereco_emp = :endereco_emp, 
+        situacao_emp = :situacao_emp
+        WHERE id_emp = :id_emp;");
+            
+        $sql->bindValue("id_emp", $e->getIdEmp());
+        $sql->bindValue(":cnpj_emp", $e->getCnpjEmp());
+        $sql->bindValue(":razao_social_emp", $e->getRazaoSocialEmp());
+        $sql->bindValue(":nome_fantasia_emp", $e->getNomeFantasiaEmp());
+        $sql->bindValue(":logo_emp", $e->getLogoEmp());
+        $sql->bindValue(":cor_pri_emp", $e->getCorPriEmp());
+        $sql->bindValue(":cor_sec_emp", $e->getCorSecEmp());
+        $sql->bindValue(":endereco_emp", $e->getEnderecoEmp());
+        $sql->bindValue(":situacao_emp", $e->getSituacaoEmp());
+        $sql->execute();
+
+
+        return $e;
+    }
+
     public function deleteEmpById($id_emp) {
         $id = $id_emp;
 

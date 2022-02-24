@@ -18,6 +18,41 @@ if(!empty($erroCadAdm)) {
     }
 }
 
+if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fantasia_emp'] && $_SESSION['endereco_emp'] && $situacao_emp) {
+    if($EmpresasDao->verifyRowByCnpj($_SESSION['cnpj_emp']) or $EmpresasDao->verifyRowByNomeFantasia($_SESSION['razao_social_emp']) or $EmpresasDao->verifyRowByRazaoSocial($_SESSION['nome_fantasia_emp'])) {
+        $_SESSION['erroCadEmp'] = 'Já existe uma empresa com esses dados no sistema.';
+        $_SESSION['erroCadEmpCrypt'] = password_hash($_SESSION['erroCadEmp'], PASSWORD_DEFAULT);
+
+        header('Location:../cadastrar/cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
+        exit;
+    } else {
+        $e = new Empresas;
+
+        $e->setCnpjEmp($_SESSION['cnpj_emp']);
+        $e->setRazaoSocialEmp($_SESSION['razao_social_emp']);
+        $e->setNomeFantasiaEmp($_SESSION['nome_fantasia_emp']);
+        $e->setLogoEmp($logo);
+        $e->setCorPriEmp($_SESSION['cor_pri_emp']);
+        $e->setCorSecEmp($_SESSION['cor_sec_emp']);
+        $e->setEnderecoEmp($_SESSION['endereco_emp']);
+        $e->setSituacaoEmp($situacao_emp);
+
+        $EmpresasDao->addEmpresas($e);
+
+        $_SESSION['msgCadEmp'] = 'Empresa cadastrada com sucesso!';
+        $_SESSION['msgCadEmpCrypt'] = password_hash($_SESSION['msgCadEmp'], PASSWORD_DEFAULT);
+
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?msgCadEmp='.$_SESSION['msgCadEmpCrypt']);
+        exit;
+    }
+} else {
+    $_SESSION['erroCadEmp'] = 'Os dados inseridos estão incompletos';
+    $_SESSION['erroCadEmpCrypt'] = password_hash($_SESSION['erroCadEmp'], PASSWORD_DEFAULT);
+
+    header('Location:../cadastrar/cadastrarEmpresa.php?erroCadEmp='.$_SESSION['erroCadEmpCrypt']);
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>

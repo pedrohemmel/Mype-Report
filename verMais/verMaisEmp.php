@@ -81,20 +81,25 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
                 <p style="margin: 0;">Adicionar um novo departamento</p>  
             </div>
             <table class="table-primary tamanhoConteudo border-radius-10-px">
-                <thead style="background-color:#<?=$_SESSION['cor_pri_emp']?>">
-                    <tr>
                     <?php 
 
                     //logica de cores da fonte para que não fique dificil de ver
-                        if(intval($_SESSION['cor_pri_emp']) > 888888) {
-                            $corFont = '000'; 
-                        } else if(intval($_SESSION['cor_pri_emp']) < 888888) {
-                            $corFont = 'fff';
+                        if(!empty($_SESSION['cor_pri_emp'])) {
+                            if(intval($_SESSION['cor_pri_emp']) > 888888) {
+                                $corFont = '000'; 
+                            } else if(intval($_SESSION['cor_pri_emp']) < 888888) {
+                                $corFont = 'fff';
+                            } else {
+                                $corFont = $_SESSION['cor_sec_emp'];
+                            }
+                            $cor_pri_emp = $_SESSION['cor_pri_emp'];
                         } else {
-                            $corFont = $_SESSION['cor_sec_emp'];
+                            $cor_pri_emp = '000000';
+                            $corFont = 'ffffff';
                         }
-                        
                     ?>
+                    <thead style="background-color:#<?=$cor_pri_emp?>">
+                    <tr>
                     <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Departamentos</th>
             
                     </tr>

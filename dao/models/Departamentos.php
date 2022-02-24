@@ -49,6 +49,8 @@ interface DepartamentosDAO {
 
     //preciso de 2 parametros para pegar qual empresa o departamento está
     public function verifyRowById(Departamentos $d);
+
+    public function verifyRowByName($nome_dpto);
     
 }
 

@@ -74,6 +74,12 @@ $cor_pri_emp = filter_input(INPUT_POST, 'cor_pri_emp');
 $cor_sec_emp = filter_input(INPUT_POST, 'cor_sec_emp');
 $situacao = filter_input(INPUT_POST, 'situacao_emp');
 
+if(!$situacao) {
+    $situacao_emp = 'ativo';
+} else {
+    $situacao_emp = 'inativo';
+}
+
 if($nome_fantasia_emp && $razao_social_emp && $cnpj_emp) {
     if((($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) || 
     (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && (!$EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && (!$EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) || 
@@ -82,19 +88,43 @@ if($nome_fantasia_emp && $razao_social_emp && $cnpj_emp) {
     ((!$EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) || 
     (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && (!$EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) || 
     (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && (!$EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp'])))) {
-        echo 'ola';
+        
+        $e = new Empresas;
+        $e->setIdEmp($_SESSION['id_emp']);
+        $e->setNomeFantasiaEmp($nome_fantasia_emp);
+        $e->setRazaoSocialEmp($razao_social_emp);
+        $e->setCnpjEmp($cnpj_emp);
+        $e->setLogoEmp($logo_emp);
+        $e->setEnderecoEmp($endereco_emp);
+        $e->setCorPriEmp($cor_pri_emp);
+        $e->setCorSecEmp($cor_sec_emp);
+        $e->setSituacaoEmp($situacao_emp);
+
+        $EmpresasDao->updateEmpresas($e);
+
+        $_SESSION['msgEdit'] = 'Dados atualizados com sucesso.';
+        $_SESSION['msgEditCrypt'] = password_hash($_SESSION['msgEdit'], PASSWORD_DEFAULT);
+        header('Location:../verMais/verMaisEmp_action.php?msgEdit='.$_SESSION['msgEditCrypt'].'&id='.$_SESSION['id_emp']);
+        exit;
         
     } else if((($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
             (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) ||
             (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) ||
             (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
-            ((!$UsuarioClienteDao->verifyRowByEmail($email_cli) && ($email_cli != $email)) && ($UsuarioClienteDao->verifyRowByPhone($telefone_cli) && ($telefone_cli != $telefone)))) {
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp'])))) {
 
         $_SESSION['erroEdit'] = 'Alguem já está utilizando os dados inseridos.';
         $_SESSION['erroEditCrypt'] = password_hash($_SESSION['erroEdit'], PASSWORD_DEFAULT);
-        header('Location:../gerenciamentoSist/gerenciamentoSist.php?msgErroEdit='.$_SESSION['erroEditCrypt']);
+        header('Location:../editar/editarEmp.php?erroEdit='.$_SESSION['erroEditCrypt']);
         exit;
 
+    } else {
+        $_SESSION['erroEdit'] = 'Erro ao editar empresa.';
+        $_SESSION['erroEditCrypt'] = password_hash($_SESSION['erroEdit'], PASSWORD_DEFAULT);
+        header('Location:../editar/editarEmp.php?erroEdit='.$_SESSION['erroEditCrypt']);
+        exit;
     }
 
 } 
@@ -136,9 +166,9 @@ $classeNone = 'displayNone';
         <label>Caso queira aplicar uma cor primária e/ou secundária para essa empresa, digite nos campos abaixo utilizando 6 digitos de cores hexagonais. Exemplo: (ff0100; 00ff12; 23f3ad;).</label>
         <div class="displayFlex flex-direction-row justify-content-center">
             <label>Cor Primária da empresa</label>
-            <input type="text" name="cor_pri_emp" value="<?=$cor_pri_emp?>" placeholder="Cor primária">
+            <input type="text" name="cor_pri_emp" value="<?=$_SESSION['cor_pri_emp']?>" placeholder="Cor primária">
             <label>Cor Secundária da empresa</label>
-            <input type="text" name="cor_sec_emp" value="<?=$cor_sec_emp?>" placeholder="Cor secundária">
+            <input type="text" name="cor_sec_emp" value="<?=$_SESSION['cor_sec_emp']?>" placeholder="Cor secundária">
         </div>
         <br><br>
         <input type="checkbox" name="situacao_emp">

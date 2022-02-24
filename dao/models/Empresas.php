@@ -101,6 +101,8 @@ interface EmpresasDAO {
 
     public function verifyRowByRazaoSocial($razao_social_emp);
 
+    public function updateEmpresas(Empresas $e);
+
     public function deleteEmpById($id_emp);
 }
 
