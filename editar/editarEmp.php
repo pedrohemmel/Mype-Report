@@ -12,6 +12,8 @@ if(!$_SESSION['loggedAdm']) {
 require '../config.php';
 require '../dao/EmpresasDaoMysql.php';
 
+$EmpresasDao = new EmpresasDaoMysql($pdo);
+
 if(!($_SESSION['id_emp'] && $_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fantasia_emp'] && $_SESSION['logo_emp'] && $_SESSION['endereco_emp'] && $_SESSION['situacao_emp'])) {
     $_SESSION['erroEmp'] = 'Erro ao encontrar empresa.';
     $_SESSION['erroEmpCrypt'] = password_hash($_SESSION['erroEmp'], PASSWORD_DEFAULT);
@@ -34,6 +36,68 @@ if(empty($_SESSION['cor_pri_emp']) && empty($_SESSION['cor_sec_emp'])) {
    $cor_pri_emp = $_SESSION['cor_pri_emp'];
    $cor_sec_emp = $_SESSION['cor_sec_emp'];
 }
+
+if(isset($_FILES['logo_emp'])) {
+    $arquivo = $_FILES['logo_emp'];
+
+    if($arquivo['size'] > 2097152) {
+        die("Arquivo muito grande! Max: 2MB");
+    } else {
+        $pasta = "../img/";
+        $nomeDoArquivo = $arquivo['name'];
+        $novoNomeDoArquivo = uniqid();
+        $extensao = strtolower(pathinfo($nomeDoArquivo, PATHINFO_EXTENSION));
+        
+    }
+
+    if($extensao != "jpg" && $extensao != "png" && !empty($arquivo['name'])) {
+        die('Tipo de arquivo não reconhecido');
+    }
+
+    if(!empty($arquivo['name'])) {
+        $_SESSION["path"] = $pasta . $novoNomeDoArquivo . "." . $extensao;
+        $deuCerto = move_uploaded_file($arquivo["tmp_name"], $_SESSION["path"]);
+        if($deuCerto) {
+            $logo_emp = $_SESSION['path'];
+        }
+    } else {
+        $logo_emp = $_SESSION['logo_emp'];
+
+    }
+}
+
+$nome_fantasia_emp = filter_input(INPUT_POST,  'nome_fantasia_emp');
+$razao_social_emp = filter_input(INPUT_POST, 'razao_social_emp');
+$cnpj_emp = filter_input(INPUT_POST, 'cnpj_emp');
+$endereco_emp = filter_input(INPUT_POST, 'endereco_emp');
+$cor_pri_emp = filter_input(INPUT_POST, 'cor_pri_emp');
+$cor_sec_emp = filter_input(INPUT_POST, 'cor_sec_emp');
+$situacao = filter_input(INPUT_POST, 'situacao_emp');
+
+if($nome_fantasia_emp && $razao_social_emp && $cnpj_emp) {
+    if((($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) || 
+    (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && (!$EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && (!$EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) || 
+    ((!$EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && (!$EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) || 
+    ((!$EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && (!$EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) || 
+    ((!$EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) || 
+    (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && (!$EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) || 
+    (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && (!$EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp'])))) {
+        echo 'ola';
+        
+    } else if((($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp != $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) ||
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp != $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp === $_SESSION['cnpj_emp']))) ||
+            (($EmpresasDao->verifyRowByNomeFantasia($nome_fantasia_emp) && ($nome_fantasia_emp === $_SESSION['nome_fantasia_emp'])) && ($EmpresasDao->verifyRowByRazaoSocial($razao_social_emp) && ($razao_social_emp === $_SESSION['razao_social_emp'])) && ($EmpresasDao->verifyRowByCnpj($cnpj_emp) && ($cnpj_emp != $_SESSION['cnpj_emp']))) ||
+            ((!$UsuarioClienteDao->verifyRowByEmail($email_cli) && ($email_cli != $email)) && ($UsuarioClienteDao->verifyRowByPhone($telefone_cli) && ($telefone_cli != $telefone)))) {
+
+        $_SESSION['erroEdit'] = 'Alguem já está utilizando os dados inseridos.';
+        $_SESSION['erroEditCrypt'] = password_hash($_SESSION['erroEdit'], PASSWORD_DEFAULT);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?msgErroEdit='.$_SESSION['erroEditCrypt']);
+        exit;
+
+    }
+
+} 
 
 //
 $classeNone = 'displayNone';

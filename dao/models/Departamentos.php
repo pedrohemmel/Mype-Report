@@ -40,6 +40,15 @@ class Departamentos {
 }
 
 interface DepartamentosDAO {
+
+    public function addDepartamentos(Departamentos $d);
+
+    public function findAll();
+
+    public function verifyRowByEmpId($id_emp);
+
+    //preciso de 2 parametros para pegar qual empresa o departamento está
+    public function verifyRowById(Departamentos $d);
     
 }
 

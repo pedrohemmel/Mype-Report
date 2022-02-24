@@ -25,6 +25,8 @@ if($EmpresasDao->verifyRowById($id_emp)) {
         $_SESSION['razao_social_emp'] = $getEmpresa->getRazaoSocialEmp();
         $_SESSION['nome_fantasia_emp'] = $getEmpresa->getNomeFantasiaEmp();
         $_SESSION['logo_emp'] = $getEmpresa->getLogoEmp();
+        $_SESSION['cor_pri_emp'] = $getEmpresa->getCorPriEmp();
+        $_SESSION['cor_sec_emp'] = $getEmpresa->getCorSecEmp();
         $_SESSION['endereco_emp'] = $getEmpresa->getEnderecoEmp();
         $_SESSION['situacao_emp'] = $getEmpresa->getSituacaoEmp();
     }  
