@@ -76,6 +76,7 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
            
         </div>
         <section class="margin-top-bottom-2-em departmentos displayFlex flex-direction-row justify-content-center">
+            <h3>Departamentos</h3>
             <div class="displayFlex flex-direction-row justify-content-center">
                 <a href="../cadastrar/cadastrarDpto.php?id_emp=<?=$_SESSION['id_emp']?>" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
                 <p style="margin: 0;">Adicionar um novo departamento</p>  
@@ -100,7 +101,10 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
                     ?>
                     <thead style="background-color:#<?=$cor_pri_emp?>">
                     <tr>
-                    <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Departamentos</th>
+                        <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Id</th>
+                        <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Nome</th>
+                        <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Centro de Custo</th>
+                        <th scope="col" style="color:#<?=$corFont?>" class="padding-10-px">Ações</th>
             
                     </tr>
                 </thead>
@@ -109,13 +113,18 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
                     <?php foreach($empresas as $getEmpresas):
                     
                     if($DepartamentosDao->verifyRowByEmpId($_SESSION['id_emp'])):
+                        $departamentos = $DepartamentosDao->findByIdEmp($_SESSION['id_emp']);
 
+                        foreach($departamentos as $getDepartamentos):
                     ?>
                         <tr class="">
-                            <td class="padding-10-px"><p  class="color-black text-decoration-none" i style="padding-left: 50px"><?=$getEmpresas->getIdDpto();?> | <?=$getEmpresas->getNameDpto();?> | <?=$getEmpresas->getCentroDCustoDpto();?></p></td>
+                            <td class="padding-10-px"><p  class="color-black text-decoration-none"><?=$getDepartamentos->getIdDpto();?></p></td>
+                            <td class="padding-10-px"><p  class="color-black text-decoration-none"><?=$getDepartamentos->getNomeDpto();?></p></td>
+                            <td class="padding-10-px"><p  class="color-black text-decoration-none"><?=$getDepartamentos->getCentroDCustoDpto();?></p></td>
+                            <td class="padding-10-px"><a href="../apagar/apagarDepartamentos.php?id_dpto=<?=$getDepartamentos->getIdDpto();?>" class="color-black">Apagar</p></td>
                         </tr>
                     <?php
-                        
+                        endforeach;
                     else:?>
                         <tr class="">
                             <td class="padding-10-px"><p  class="color-black" i style="padding-left: 50px">Não há departamentos cadastrados nessa empresa.</p></td>

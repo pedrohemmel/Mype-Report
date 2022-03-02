@@ -45,12 +45,16 @@ interface DepartamentosDAO {
 
     public function findAll();
 
+    public function findByIdEmp($id_emp);
+
     public function verifyRowByEmpId($id_emp);
 
     //preciso de 2 parametros para pegar qual empresa o departamento está
-    public function verifyRowById(Departamentos $d);
+    public function verifyRowById($id_dpto);
 
     public function verifyRowByName($nome_dpto);
+
+    public function deleteDptoById($id_dpto);
     
 }
 

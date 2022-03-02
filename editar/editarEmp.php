@@ -174,7 +174,7 @@ $classeNone = 'displayNone';
         <input type="checkbox" name="situacao_emp">
         <label>Ao cadastrar uma empresa, automaticamente o status da mesma é ativa, caso queira deixar o status como inativo selecione esta opção.</label>
         <br><br>
-        <input type="submit" value="Cadastrar">
+        <input type="submit" value="Alterar">
 
     </form>
 </body>

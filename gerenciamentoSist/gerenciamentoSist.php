@@ -171,7 +171,7 @@ if(!empty($chaveDispSections)) {
                 <section class="registrosSistema <?=$classeRegistrosSistema?>">
                     <nav class="displayFlex flex-direction-row">
                         <div class="navBase background-primary-color displayFlex flex-direction-row justify-content-center">
-                            <a class="background-secondary-color text-decoration-none color-black linkAcessoRegistros" href="registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
+                            <a class="background-secondary-color text-decoration-none color-black linkAcessoRegistros" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
                             <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['indicadoresCrypt']?>">Indicadores</a>
                             <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
                             <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
