@@ -27,7 +27,7 @@ if(!empty($erroCadAdm)) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Administrador</title>
-    <link rel="stylesheet" href="style/base.css"/>
+    <link rel="stylesheet" href="../style/base.css"/>
 </head>
 <body>
     <!--Formulário de cadastro do usuário administrador-->

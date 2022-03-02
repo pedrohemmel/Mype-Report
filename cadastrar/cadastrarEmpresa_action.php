@@ -49,7 +49,10 @@ if($_SESSION['cnpj_emp'] && $_SESSION['razao_social_emp'] && $_SESSION['nome_fan
         $_SESSION['msgCadEmp'] = 'Empresa cadastrada com sucesso!';
         $_SESSION['msgCadEmpCrypt'] = password_hash($_SESSION['msgCadEmp'], PASSWORD_DEFAULT);
 
-        header('Location:../gerenciamentoSist/gerenciamentoSist.php?msgCadEmp='.$_SESSION['msgCadEmpCrypt']);
+        $_SESSION['displayEmpresas'] = 'DEativo';
+        $_SESSION['displayEmpresasCrypt'] = password_hash($_SESSION['displayEmpresas'], PASSWORD_DEFAULT);
+
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayEmpresasCrypt'].'&msgCadEmp='.$_SESSION['msgCadEmpCrypt']);
         exit;
     }
 } else {

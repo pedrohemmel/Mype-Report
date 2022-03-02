@@ -166,9 +166,9 @@ $classeNone = 'displayNone';
         <label>Caso queira aplicar uma cor primária e/ou secundária para essa empresa, digite nos campos abaixo utilizando 6 digitos de cores hexagonais. Exemplo: (ff0100; 00ff12; 23f3ad;).</label>
         <div class="displayFlex flex-direction-row justify-content-center">
             <label>Cor Primária da empresa</label>
-            <input type="text" name="cor_pri_emp" value="<?=$_SESSION['cor_pri_emp']?>" placeholder="Cor primária">
+            <input type="text" name="cor_pri_emp" value="<?=$_SESSION['cor_pri_emp']?>" minLength="6" maxLength="6" placeholder="Cor primária">
             <label>Cor Secundária da empresa</label>
-            <input type="text" name="cor_sec_emp" value="<?=$_SESSION['cor_sec_emp']?>" placeholder="Cor secundária">
+            <input type="text" name="cor_sec_emp" value="<?=$_SESSION['cor_sec_emp']?>" minLength="6" maxLength="6" placeholder="Cor secundária">
         </div>
         <br><br>
         <input type="checkbox" name="situacao_emp">
