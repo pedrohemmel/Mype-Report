@@ -230,6 +230,34 @@ if(!empty($chaveDispSections)) {
                         </div>
 
                         <!--INDICADORES-->
+                        <div class="<?=$classeIndicadores?>">
+                            <div class="tituloPaginas">
+                                <h2>Selecione a empresa na qual deseja ver o indicador:</h2>
+                            </div>
+                            <section class="tamanhoConteudo displayFlex flex-direction-row justify-content-center">
+                                <?php   
+                                    if($EmpresasDao->verifyRow()):
+                                        $bloboEmpresas = 'displayBlock';
+                                        $empresas = $EmpresasDao->findAll();
+                                        foreach($empresas as $getEmpresas):
+                                ?>
+                                <a href="../verMais/verMaisIndicadores.php?id_emp=<?=$getEmpresas->getIdEmp()?>" style="margin: 20px; width:200px"class="hover-shadow color-black text-decoration-none displayFlex flex-direction-column align-items-center justify-content-center background-secondary-color padding-10-px border-radius-10-px">
+                                    
+                                    <img width="80%" src="<?=$getEmpresas->getLogoEmp();?>" class="border-radius-10-px" alt="logo"/>
+                                    <h6><?=$getEmpresas->getNomeFantasiaEmp();?></h6>
+                                    
+                                </a>
+                                <?php       
+                                        endforeach;
+                                    else: 
+                                ?>
+                                    <span>Não há empresas cadastradas até o momento.</span>
+                                <?php
+                                    endif;
+                                ?>
+                            </section>
+                        </div>
+                         
                         <!--EMPRESAS-->
                         <div class="sectionEmpresa <?=$classeEmpresas?>">
                             <div class="tituloPaginas">

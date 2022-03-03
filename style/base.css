@@ -59,6 +59,10 @@
     color: #000;
 }
 
+.color-black:hover {
+    color: black;
+}
+
 .text-decoration-none {
     text-decoration: none;
 }
@@ -126,6 +130,14 @@
 .tamanhoConteudo {
     width: 80%;
     margin: 0 auto;
+}
+
+.hover-shadow {
+    transition: 0.3s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
 
 /*gerenciamentoSist.php*/

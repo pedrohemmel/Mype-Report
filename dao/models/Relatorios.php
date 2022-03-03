@@ -50,6 +50,13 @@ class Relatorios {
 
 interface RelatoriosDAO {
 
+    public function addRelatorios(Relatorios $r);
+
+    public function findByEmpId($id_emp);
+
+    public function verifyRowByEmpId($id_emp);
+
+    public function verifyRowByLinkRel($link_rel);
 }
 
 ?>
