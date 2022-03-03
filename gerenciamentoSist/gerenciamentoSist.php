@@ -45,7 +45,7 @@ $_SESSION['registrosSistema'] = 'registrosSistema';
         $_SESSION['fechaUsuariosGruposAcesso'] = 'fechaUsuariosGruposAcesso';
         $_SESSION['administradorGruposAcesso'] = 'administradorGruposAcesso';
         $_SESSION['fechaAdministradorGruposAcesso'] = 'fechaAdministradorGruposAcesso';
-    $_SESSION['indicadores'] = 'indicadores';
+    $_SESSION['relatorios'] = 'relatorios';
     $_SESSION['empresas'] = 'empresas';
     $_SESSION['usuarios'] = 'usuarios';
 $_SESSION['configSistema'] = 'configSistema';
@@ -57,7 +57,7 @@ $_SESSION['registrosSistemaCrypt'] = password_hash($_SESSION['registrosSistema']
         $_SESSION['fechaUsuariosGruposAcessoCrypt'] = password_hash($_SESSION['fechaUsuariosGruposAcesso'], PASSWORD_DEFAULT);
         $_SESSION['administradorGruposAcessoCrypt'] = password_hash($_SESSION['administradorGruposAcesso'], PASSWORD_DEFAULT);
         $_SESSION['fechaAdministradorGruposAcessoCrypt'] = password_hash($_SESSION['fechaAdministradorGruposAcesso'], PASSWORD_DEFAULT);
-    $_SESSION['indicadoresCrypt'] = password_hash($_SESSION['indicadores'], PASSWORD_DEFAULT);
+    $_SESSION['relatoriosCrypt'] = password_hash($_SESSION['relatorios'], PASSWORD_DEFAULT);
     $_SESSION['empresasCrypt'] = password_hash($_SESSION['empresas'], PASSWORD_DEFAULT);
     $_SESSION['usuariosCrypt'] = password_hash($_SESSION['usuarios'], PASSWORD_DEFAULT);
 $_SESSION['configSistemaCrypt'] = password_hash($_SESSION['configSistema'], PASSWORD_DEFAULT);
@@ -72,10 +72,16 @@ $classeGruposAcesso = 'displayNone';
     $linkAdministrador = 'displayBlock';
     $linkUsuarios   = 'displayBlock';
     $blockEmpresas = 'displayNone';
-$classeIndicadores = 'displayNone';
+$classeRelatorios = 'displayNone';
 $classeEmpresas = 'displayNone';
 $classeUsuarios = 'displayNone';
 
+//setando cores de background do botao para cada seção
+
+$bckgrGrupoAcesso = 'color-white';
+$bckgrRelatorios = 'color-white';
+$bckgrEmpresas = 'color-white';
+$bckgrUsuarios = 'color-white';
 
 //variáveis das opcoes dentro das sections de registro do sistema pre-definidas como display none
 
@@ -84,22 +90,26 @@ if(!empty($chaveDispSections)) {
     if(password_verify($_SESSION['displayRegistrosSistema'], $chaveDispSections)) {
         $classeRegistrosSistema = 'displayBlockNav';
         $classeGruposAcesso = 'displayBlock';
+        $bckgrGrupoAcesso = 'corFundoSecao';
     } else if(password_verify($_SESSION['displayGruposAcesso'], $chaveDispSections)) {
         $classeRegistrosSistema = 'displayBlockNav';
         $classeGruposAcesso = 'displayBlock';
-        
-    } else if(password_verify($_SESSION['displayIndicadores'], $chaveDispSections)) {
+        $bckgrGrupoAcesso = 'corFundoSecao';
+    } else if(password_verify($_SESSION['displayRelatorios'], $chaveDispSections)) {
         $classeRegistrosSistema = 'displayBlockNav';
-        $classeIndicadores = 'displayBlock';
+        $classeRelatorios = 'displayBlock';
+        $bckgrRelatorios = 'corFundoSecao';
     } else if(password_verify($_SESSION['displayEmpresas'], $chaveDispSections)) {
         $classeRegistrosSistema = 'displayBlockNav';
         $classeEmpresas = 'displayBlock';
+        $bckgrEmpresas = 'corFundoSecao';
     } else if(password_verify($_SESSION['displayUsuarios'], $chaveDispSections)) {
         $classeRegistrosSistema = 'displayBlockNav';
         $classeUsuarios = 'displayBlock';
+        $bckgrUsuarios = 'corFundoSecao';
     }
-    
-    
+
+
     /* OPCOES DENTRO DAS SECTIONS DE REGISTRO DO SISTEMA */
 
     
@@ -170,11 +180,11 @@ if(!empty($chaveDispSections)) {
                 <!--Cadastros do sistema-->
                 <section class="registrosSistema <?=$classeRegistrosSistema?>">
                     <nav class="displayFlex flex-direction-row">
-                        <div class="navBase background-primary-color displayFlex flex-direction-row justify-content-center">
-                            <a class="background-secondary-color text-decoration-none color-black linkAcessoRegistros" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['indicadoresCrypt']?>">Indicadores</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
-                            <a class="text-decoration-none color-white linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
+                    <div class="navBase background-primary-color displayFlex flex-direction-row justify-content-center">
+                            <a class="<?=$bckgrGrupoAcesso?> text-decoration-none linkAcessoRegistros" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
+                            <a class="<?=$bckgrRelatorios?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['relatoriosCrypt']?>">Relatorios</a>
+                            <a class="<?=$bckgrEmpresas?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
+                            <a class="<?=$bckgrUsuarios?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
                         </div>
                         <span>
                             <i onclick="abreFechaNav()" class="bi bi-list linkIcon iconAbreFecha"></i>
@@ -188,6 +198,10 @@ if(!empty($chaveDispSections)) {
                         <div class="gruposAcesso <?=$classeGruposAcesso?>">
                             <div class="tituloPaginas">
                                 <h2>Grupos de acesso</h2>
+                            </div>
+                            <div class="tamanhoConteudo addEmpresa displayFlex flex-direction-row align-items-center">
+                                <a href="../cadastrar/cadastrarEmpresa.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
+                                <p style="margin: 0;">Adicionar uma nova empresa</p>
                             </div>
                             <table class="table-primary tamanhoConteudo border-radius-10-px">
                                 <thead class="background-primary-color">
@@ -229,10 +243,10 @@ if(!empty($chaveDispSections)) {
 
                         </div>
 
-                        <!--INDICADORES-->
-                        <div class="<?=$classeIndicadores?>">
+                        <!--RELATORIOS-->
+                        <div class="<?=$classeRelatorios?>">
                             <div class="tituloPaginas">
-                                <h2>Selecione a empresa na qual deseja ver o indicador:</h2>
+                                <h2>Selecione a empresa</h2>
                             </div>
                             <section class="tamanhoConteudo displayFlex flex-direction-row justify-content-center">
                                 <?php   
@@ -241,7 +255,7 @@ if(!empty($chaveDispSections)) {
                                         $empresas = $EmpresasDao->findAll();
                                         foreach($empresas as $getEmpresas):
                                 ?>
-                                <a href="../verMais/verMaisIndicadores.php?id_emp=<?=$getEmpresas->getIdEmp()?>" style="margin: 20px; width:200px"class="hover-shadow color-black text-decoration-none displayFlex flex-direction-column align-items-center justify-content-center background-secondary-color padding-10-px border-radius-10-px">
+                                <a href="../verMais/verMaisRelatorios.php?id_emp=<?=$getEmpresas->getIdEmp()?>" style="margin: 20px; width:200px"class="hover-shadow color-black text-decoration-none displayFlex flex-direction-column align-items-center justify-content-center background-secondary-color padding-10-px border-radius-10-px">
                                     
                                     <img width="80%" src="<?=$getEmpresas->getLogoEmp();?>" class="border-radius-10-px" alt="logo"/>
                                     <h6><?=$getEmpresas->getNomeFantasiaEmp();?></h6>

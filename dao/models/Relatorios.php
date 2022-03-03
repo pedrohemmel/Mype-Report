@@ -8,43 +8,43 @@ class Relatorios {
     private $situacao_rel;
 
     public function getIdRel() {
-        return $this->$id_rel;
+        return $this->id_rel;
     }
 
     public function setIdRel($ir) {
-        $this->$id_rel = trim($ir);
+        $this->id_rel = trim($ir);
     }
 
     public function getIdEmp() {
-        return $this->$id_emp;
+        return $this->id_emp;
     }
 
     public function setIdEmp($ie) {
-        $this->$id_emp = trim($ie);
+        $this->id_emp = trim($ie);
     }
 
     public function getNomeRel() {
-        return $this->$nome_rel;
+        return $this->nome_rel;
     }
 
     public function setNomeRel($nr) {
-        $this->$nome_rel = trim($nr);
+        $this->nome_rel = trim($nr);
     }
 
     public function getLinkRel() {
-        return $this->$link_rel;
+        return $this->link_rel;
     }
 
     public function setLinkRel($lr) {
-        $this->$link_rel = trim($lr);
+        $this->link_rel = trim($lr);
     }
 
     public function getSituacaoRel() {
-        return $this->$situacao_rel;
+        return $this->situacao_rel;
     }
 
     public function setSituacaoRel($sr) {
-        $this->$situacao_rel = trim($sr);
+        $this->situacao_rel = trim($sr);
     }
 }
 
@@ -52,7 +52,11 @@ interface RelatoriosDAO {
 
     public function addRelatorios(Relatorios $r);
 
+    public function findById($id_rel);
+
     public function findByEmpId($id_emp);
+
+    public function verifyRowById($id_rel);
 
     public function verifyRowByEmpId($id_emp);
 

@@ -67,6 +67,10 @@
     text-decoration: none;
 }
 
+.text-align-center {
+    text-align: center;
+}
+
 .vertical-space-around {
     display: flex;
     flex-direction: column;
@@ -140,6 +144,11 @@
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
 }
 
+.margin-top-bottom-2-em {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 /*gerenciamentoSist.php*/
 
 .registrosSist {
@@ -186,6 +195,11 @@
 
 .sectionEmpresa {
     width: 100%;
+}
+
+.corFundoSecao {
+    background-color: rgb(238, 238, 238);
+    color: #000;
 }
 
 /*gerenciamentoSist.php*/

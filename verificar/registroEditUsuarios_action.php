@@ -13,7 +13,7 @@ $chave = filter_input(INPUT_GET, 'chave');
 
 $_SESSION['displayRegistrosSistema'] = '';
 $_SESSION['displayGruposAcesso'] = '';
-$_SESSION['displayIndicadores'] = '';
+$_SESSION['displayRelatorios'] = '';
 $_SESSION['displayEmpresas'] = '';
 $_SESSION['displayUsuarios'] = '';
 $_SESSION['displayUsuariosGruposAcesso'] = '';
@@ -42,12 +42,12 @@ if(!empty($chave)) {
         header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayGruposAcessoCrypt']);
         exit;
 
-    } else if(password_verify($_SESSION['indicadores'], $chave)) {
+    } else if(password_verify($_SESSION['relatorios'], $chave)) {
 
-        $_SESSION['displayIndicadores'] = 'DIativo';
-        $_SESSION['displayIndicadoresCrypt'] = password_hash($_SESSION['displayIndicadores'], PASSWORD_DEFAULT);
+        $_SESSION['displayRelatorios'] = 'DRativo';
+        $_SESSION['displayRelatoriosCrypt'] = password_hash($_SESSION['displayRelatorios'], PASSWORD_DEFAULT);
 
-        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayIndicadoresCrypt']);
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayRelatoriosCrypt']);
         exit;
         
     } else if(password_verify($_SESSION['empresas'], $chave)) {

@@ -28,6 +28,7 @@ if($situacao) {
 echo $nome_rel;
 echo $link_rel;
 echo $situacao_rel;
+echo $_SESSION['id_emp'];
 
 if($nome_rel && $link_rel && $situacao_rel) {
     
@@ -42,14 +43,15 @@ if($nome_rel && $link_rel && $situacao_rel) {
 
         $_SESSION['msgCadRel'] = 'Relatório cadastrado com sucesso!';
         $_SESSION['msgCadRelCrypt'] = password_hash($_SESSION['msgCadRel'], PASSWORD_DEFAULT);
-        header('Location:../verMais/verMaisIndicadores.php?msgCadRel='.$_SESSION['msgCadRelCrypt'].'&id='.$_SESSION['id_emp']);
+
+        header('Location:../verMais/verMaisRelatorios.php?msgCadRel='.$_SESSION['msgCadRelCrypt'].'&id_emp='.$_SESSION['id_emp']);
         exit;
     
 } else {
     $_SESSION['erroCadRel'] = 'Os dados inseridos estão incompletos';
     $_SESSION['erroCadRelCrypt'] = password_hash($_SESSION['erroCadRel'], PASSWORD_DEFAULT);
 
-    header('Location:../verMais/verMaisIndicadores.php?erroCadRel='.$_SESSION['erroCadRelCrypt'].'&id='.$_SESSION['id_emp']);
+    header('Location:../verMais/verMaisRelatorios.php?erroCadRel='.$_SESSION['erroCadRelCrypt'].'&id_emp='.$_SESSION['id_emp']);
     exit;
 }
 

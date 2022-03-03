@@ -66,3 +66,11 @@ recupera_senha_usu varchar(100),
 primary key(id_usu),
 foreign key(id_emp) references tb_empresas(id_emp),
 foreign key(id_dpto) references tb_departamentos(id_dpto));
+
+create table tb_indicadores(
+id_ind int not null auto_increment,
+id_rel int not null,
+id_usu int not null,
+primary key(id_ind),
+foreign key(id_rel) references tb_relatorios(id_rel),
+foreign key(id_usu) references tb_usuarios(id_usu));

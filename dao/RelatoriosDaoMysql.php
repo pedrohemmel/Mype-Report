@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/Relatorios.php';
+require 'models/Relatorios.php';
 
 class RelatoriosDaoMysql implements RelatoriosDAO {
 
@@ -26,6 +26,28 @@ class RelatoriosDaoMysql implements RelatoriosDAO {
         return $r;
     }
 
+    public function findById($id_rel) {
+        $id = $id_rel;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_relatorios WHERE id_rel = '".$id."';");
+
+        if($sql->rowCount() > 0) {
+            $data  = $sql->fetchAll();
+            foreach($data as $item) {
+                $r = new Relatorios;
+                $r->setIdRel($item['id_rel']);
+                $r->setIdEmp($item['id_emp']);
+                $r->setNomeRel($item['nome_rel']);
+                $r->setLinkRel($item['link_rel']);
+                $r->setSituacaoRel($item['situacao_rel']);
+                
+    
+                $array[] = $r;
+            }
+        }
+        return $array;
+    }
+
     public function findByEmpId($id_emp) {
         $id = $id_emp;
 
@@ -46,6 +68,14 @@ class RelatoriosDaoMysql implements RelatoriosDAO {
             }
         }
         return $array;
+    }
+
+    public function verifyRowById($id_rel) {
+        $id = $id_rel;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_relatorios WHERE id_rel = '".$id."';");
+
+        return $sql->rowCount() > 0;
     }
 
     public function verifyRowByEmpId($id_emp) {
