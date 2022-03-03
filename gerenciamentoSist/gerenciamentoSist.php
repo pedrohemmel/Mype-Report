@@ -147,7 +147,6 @@ if(!empty($chaveDispSections)) {
 }
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -200,8 +199,8 @@ if(!empty($chaveDispSections)) {
                                 <h2>Grupos de acesso</h2>
                             </div>
                             <div class="tamanhoConteudo addEmpresa displayFlex flex-direction-row align-items-center">
-                                <a href="../cadastrar/cadastrarEmpresa.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
-                                <p style="margin: 0;">Adicionar uma nova empresa</p>
+                                <a href="../cadastrar/cadastrarUsuario.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
+                                <p style="margin: 0;">Adicionar um novo usuário</p>
                             </div>
                             <table class="table-primary tamanhoConteudo border-radius-10-px">
                                 <thead class="background-primary-color">

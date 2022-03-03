@@ -34,7 +34,7 @@ if(!empty($erroCadAdm)) {
     <div class="container">
         <form method="POST" action="../cadastrar/cadastrarAdm_action.php">
             <p class="<?=$classeNone?>"><?=$mensagem?></p>
-            <input type="text" name="nome_adm" placeholder="Digite seu nome completo" maxlength="50" required>
+            <input type="text" name="nome_adm" placeholder="Digite seu nome completo" maxlength="100" required>
             <br><br>
             <input type="text" name="username_adm" placeholder="Digite seu nome de usuário" maxlength="50" required>
             <br><br>
