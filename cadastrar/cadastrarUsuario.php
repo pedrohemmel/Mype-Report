@@ -27,7 +27,15 @@ if(!empty($erroCadUsu)) {
 }
 
 //igualando as sessoes para nulo para que não fique lembrando da memoria anter
-
+$_SESSION['nome_usu'] = "";
+$_SESSION['username_usu'] = "";
+$_SESSION['telefone_usu'] = "";
+$_SESSION['email_usu'] = "";
+$_SESSION['email_usu_confirm'] = "";
+$_SESSION['senha_usu'] = "";
+$_SESSION['senha_usu_confirm'] = "";
+$_SESSION['perfil_usu'] = "";
+$_SESSION['id_emp'] = "";
 
 //recebendo valores, verificando a empresa que foi selecionada e dando a opção dos departamentos
 $nome_usu = filter_input(INPUT_POST, 'nome_usu');
@@ -41,17 +49,17 @@ $perfil_usu = filter_input(INPUT_POST, 'perfil_usu');
 $id_emp = filter_input(INPUT_POST, 'id_emp');
 $situacao = filter_input(INPUT_POST, 'situacao_usu');
 
-if($nome_usu && $username_usu && $telefone_usu && $email_usu && $email_usu_confirm && $senha_usu && $senha_usu_confirm && $perfil_usu && $id_emp && $situacao) {
-    $_SESSION['nome_usu'] = $nome_usu;
-    $_SESSION['username_usu'] = $username_usu;
-    $_SESSION['telefone_usu'] = $telefone_usu;
-    $_SESSION['email_usu'] = $email_usu;
-    $_SESSION['email_usu_confirm'] = $email_usu_confirm;
-    $_SESSION['senha_usu'] = $senha_usu;
-    $_SESSION['senha_usu_confirm'] = $senha_usu_confirm;
-    $_SESSION['perfil_usu'] = $perfil_usu;
-    $_SESSION['id_emp'] = $id_emp;
-}
+
+$_SESSION['nome_usu'] = $nome_usu;
+$_SESSION['username_usu'] = $username_usu;
+$_SESSION['telefone_usu'] = $telefone_usu;
+$_SESSION['email_usu'] = $email_usu;
+$_SESSION['email_usu_confirm'] = $email_usu_confirm;
+$_SESSION['senha_usu'] = $senha_usu;
+$_SESSION['senha_usu_confirm'] = $senha_usu_confirm;
+$_SESSION['perfil_usu'] = $perfil_usu;
+$_SESSION['id_emp'] = $id_emp;
+
 
 
 if($situacao) {
@@ -138,8 +146,7 @@ echo $_SESSION['id_emp'];
                 if($DepartamentosDao->verifyRowByEmpId($id_emp)) {
                     $departamentos = $DepartamentosDao->findByIdEmp($id_emp);
                 } else {
-                    header('Location:cadastrarUsuario.php');
-                    exit;
+                    
                 }
                     foreach($departamentos as $getDepartamentos):
                 ?>
