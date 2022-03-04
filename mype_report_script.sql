@@ -53,8 +53,8 @@ foreign key(id_emp) references tb_empresas(id_emp));
 
 create table tb_usuarios(
 id_usu int not null auto_increment,
-id_emp int not null,
-id_dpto int not null,
+id_emp int null,
+id_dpto int null,
 nome_usu varchar(100) not null,
 username_usu varchar(50) not null unique,
 email_usu varchar(75) not null unique,

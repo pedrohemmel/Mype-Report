@@ -55,6 +55,10 @@
     color: #fff;
 }
 
+.color-white:hover {
+    color: #fff;
+}
+
 .color-black {
     color: #000;
 }

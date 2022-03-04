@@ -7,6 +7,14 @@ if(!$_SESSION['loggedAdm']) {
     exit;
 }
 
+require "../config.php";
+require "../dao/EmpresasDaoMysql.php";
+require "../dao/DepartamentosDaoMysql.php";
+
+$DepartamentosDao = new DepartamentosDaoMysql($pdo);
+$EmpresasDao = new EmpresasDaoMysql($pdo);
+
+
 $erroCadUsu = filter_input(INPUT_GET, 'erroCadUsu');
 
 $classeNone = 'displayNone';
@@ -18,18 +26,55 @@ if(!empty($erroCadUsu)) {
     }
 }
 
+//igualando as sessoes para nulo para que não fique lembrando da memoria anter
+
+
+//recebendo valores, verificando a empresa que foi selecionada e dando a opção dos departamentos
+$nome_usu = filter_input(INPUT_POST, 'nome_usu');
+$username_usu = filter_input(INPUT_POST, 'username_usu');
+$telefone_usu = filter_input(INPUT_POST, 'telefone_usu');
+$email_usu = filter_input(INPUT_POST, 'email_usu');
+$email_usu_confirm = filter_input(INPUT_POST, 'email_usu_confirm');
+$senha_usu = filter_input(INPUT_POST, 'senha_usu');
+$senha_usu_confirm = filter_input(INPUT_POST, 'senha_usu_confirm');
+$perfil_usu = filter_input(INPUT_POST, 'perfil_usu');
+$id_emp = filter_input(INPUT_POST, 'id_emp');
+$situacao = filter_input(INPUT_POST, 'situacao_usu');
+
+if($nome_usu && $username_usu && $telefone_usu && $email_usu && $email_usu_confirm && $senha_usu && $senha_usu_confirm && $perfil_usu && $id_emp && $situacao) {
+    $_SESSION['nome_usu'] = $nome_usu;
+    $_SESSION['username_usu'] = $username_usu;
+    $_SESSION['telefone_usu'] = $telefone_usu;
+    $_SESSION['email_usu'] = $email_usu;
+    $_SESSION['email_usu_confirm'] = $email_usu_confirm;
+    $_SESSION['senha_usu'] = $senha_usu;
+    $_SESSION['senha_usu_confirm'] = $senha_usu_confirm;
+    $_SESSION['perfil_usu'] = $perfil_usu;
+    $_SESSION['id_emp'] = $id_emp;
+}
+
+
+if($situacao) {
+    $_SESSION['situacao_usu'] = 'inativo';
+} else {
+    $_SESSION['situacao_usu'] = 'ativo';
+}
+
+$classeDpto = 'displayNone';
+
+if(!empty($_SESSION['perfil_usu'])) {
+    if($_SESSION['perfil_usu'] = 'usu') {
+        $classeDpto = 'displayBlock';
+    }
+}
+
+echo $classeDpto;
+echo $_SESSION['id_emp'];
+
+
+
 ?>
 
-id_emp int not null,
-id_dpto int not null,
-nome_usu varchar(100) not null,
-username_usu varchar(50) not null unique,
-email_usu varchar(75) not null unique,
-telefone_usu char(14) not null unique,
-perfil_usu char(3) not null check(perfil_usu = 'adm' || perfil_usu = 'usu'),
-senha_usu varchar(100) not null,
-situacao_usu char(7) not null check(situacao_usu = 'ativo' || situacao_usu = 'inativo'),
-recupera_senha_usu varchar(100),
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +88,7 @@ recupera_senha_usu varchar(100),
 <body>
     <!--Formulário de cadastro do usuário administrador-->
     <div class="container">
-        <form method="POST" action="../cadastrar/cadastrarUsu_action.php">
+        <form method="POST" action="">
             <p class="<?=$classeNone?>"><?=$mensagem?></p>
             <input type="text" name="nome_usu" placeholder="Digite seu nome completo" maxlength="100" required>
             <br><br>
@@ -54,21 +99,58 @@ recupera_senha_usu varchar(100),
             <input type="email" name="email_usu" placeholder="Digite seu e-mail de acesso" maxlength="75" required>
             <input type="email" name="email_usu_confirm" placeholder="Confirme seu e-mail de acesso" maxlength="75" required>
             <br><br>
+            <input type="password" name="senha_usu" placeholder="Digite sua senha" minlength="8" maxlength="100" required>
+            <input type="password" name="senha_usu_confirm" placeholder="Confirme sua senha" minlength="8" maxlength="100" required>
+            <br><br>
             <label>Seleciona o tipo usuário</label>
-            <select name="perfil_usu">
+            <br>
+            <select name="perfil_usu" required>
                 <option value="usu">Usuário</option>
                 <option value="adm">Administrador</option>
             </select>
             <br><br>
-            <input type="password" name="senha_usu" placeholder="Digite sua senha" minlength="8" maxlength="100" required>
-            <input type="password" name="senha_usu_confirm" placeholder="Confirme sua senha" minlength="8" maxlength="100" required>
+            <label>Caso seja um usuário comum do sistema, selecione a empresa que o mesmo se encontra, se não, destarte essa opção.</label>
+            <br>
+            <select name="id_emp" required>
+                <?php
+                    $empresas = $EmpresasDao->findAll();     
+                    foreach($empresas as $getEmpresas):
+                ?>
+                <option value="<?=$getEmpresas->getIdEmp();?>"><?=$getEmpresas->getNomeFantasiaEmp()?></option>
+                <?php
+                    endforeach;
+                ?>
+            </select>
             <br><br>
-            <input type="checkbox" name="situacao_emp">
+            
+            <input type="checkbox" name="situacao_usu">
             <label>Ao cadastrar uma empresa, automaticamente o status da mesma é ativa, caso queira deixar o status como inativo selecione esta opção.</label>
             <br><br>
             <input type="submit" value="Cadastrar-se">
         </form>
     </div>
+
+    <section class="<?=$classeDpto?> fundoPretoAbsolute">
+        <form method="POST" action="../cadastrar/cadastrarUsuario_action.php">
+            <label for="">Selecione o departamento em que o usuário vai se encontrar no sistema.</label>
+            <select name="id_dpto">
+                <?php
+                if($DepartamentosDao->verifyRowByEmpId($id_emp)) {
+                    $departamentos = $DepartamentosDao->findByIdEmp($id_emp);
+                } else {
+                    header('Location:cadastrarUsuario.php');
+                    exit;
+                }
+                    foreach($departamentos as $getDepartamentos):
+                ?>
+                <option value="<?=$getDepartamentos->getIdDpto();?>"><?=$getDepartamentos->getNomeDpto();?></option>
+                <?php
+                    
+                    endforeach;
+                ?>
+            </select>
+        </form>
+    </section>
     
     <script src="../js/cadastrarAdmScript.js"></script>
 </body>

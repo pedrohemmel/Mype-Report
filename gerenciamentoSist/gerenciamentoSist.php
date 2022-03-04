@@ -183,7 +183,6 @@ if(!empty($chaveDispSections)) {
                             <a class="<?=$bckgrGrupoAcesso?> text-decoration-none linkAcessoRegistros" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['gruposAcessoCrypt']?>">Grupos de acesso</a>
                             <a class="<?=$bckgrRelatorios?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['relatoriosCrypt']?>">Relatorios</a>
                             <a class="<?=$bckgrEmpresas?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['empresasCrypt']?>">Empresas</a>
-                            <a class="<?=$bckgrUsuarios?> text-decoration-none linkAcessoRegistros"  href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosCrypt']?>">Usuarios</a>
                         </div>
                         <span>
                             <i onclick="abreFechaNav()" class="bi bi-list linkIcon iconAbreFecha"></i>
@@ -196,9 +195,9 @@ if(!empty($chaveDispSections)) {
                         <!--GRUPOS DE ACESSO-->
                         <div class="gruposAcesso <?=$classeGruposAcesso?>">
                             <div class="tituloPaginas">
-                                <h2>Grupos de acesso</h2>
+                                <h2>Usuários do sistema</h2>
                             </div>
-                            <div class="tamanhoConteudo addEmpresa displayFlex flex-direction-row align-items-center">
+                            <div class="tamanhoConteudo margin-top-bottom-2-em addEmpresa displayFlex flex-direction-row align-items-center">
                                 <a href="../cadastrar/cadastrarUsuario.php" style="margin-right: 10px;" class="bi bi-plus-lg iconAdd color-black background-secondary-color border-radius-10-px"></a>
                                 <p style="margin: 0;">Adicionar um novo usuário</p>
                             </div>
