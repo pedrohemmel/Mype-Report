@@ -47,6 +47,8 @@ interface DepartamentosDAO {
 
     public function findByIdEmp($id_emp);
 
+    public function verifyRow();
+
     public function verifyRowByEmpId($id_emp);
 
     //preciso de 2 parametros para pegar qual empresa o departamento está

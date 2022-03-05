@@ -14,6 +14,25 @@ require "../dao/DepartamentosDaoMysql.php";
 $DepartamentosDao = new DepartamentosDaoMysql($pdo);
 $EmpresasDao = new EmpresasDaoMysql($pdo);
 
+if(!$EmpresasDao->verifyRow()) {
+    if(!$DepartamentosDao->verifyRow()) {
+        $_SESSION['erroCadUsu'] = 'Erro ao cadastrar usuário, é necessário criar um departamento primeiro para que possa cadastrar um usuário, entre em uma empresa e cadastre os departamentos da mesma.';
+        $_SESSION['erroCadUsuCrypt'] = password_hash($_SESSION['erroCadUsu'], PASSWORD_DEFAULT);
+        $_SESSION['displayGruposAcesso'] = 'DGAativo';
+        $_SESSION['displayGruposAcessoCrypt'] = password_hash($_SESSION['displayGruposAcesso'], PASSWORD_DEFAULT);
+
+        header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayGruposAcessoCrypt'].'&erroCadUsu='.$_SESSION['erroCadUsuCrypt']);
+        exit;
+    }
+    $_SESSION['erroCadUsu'] = 'Erro ao cadastrar usuário, é necessário criar uma empresa primeiro para que possa cadastrar um usuário.';
+    $_SESSION['erroCadUsuCrypt'] = password_hash($_SESSION['erroCadUsu'], PASSWORD_DEFAULT);
+    $_SESSION['displayGruposAcesso'] = 'DGAativo';
+    $_SESSION['displayGruposAcessoCrypt'] = password_hash($_SESSION['displayGruposAcesso'], PASSWORD_DEFAULT);
+
+    header('Location:../gerenciamentoSist/gerenciamentoSist.php?chaveDispSections='.$_SESSION['displayGruposAcessoCrypt'].'&erroCadUsu='.$_SESSION['erroCadUsuCrypt']);
+    exit;
+}
+
 
 $erroCadUsu = filter_input(INPUT_GET, 'erroCadUsu');
 
@@ -26,16 +45,7 @@ if(!empty($erroCadUsu)) {
     }
 }
 
-//igualando as sessoes para nulo para que não fique lembrando da memoria anter
-$_SESSION['nome_usu'] = "";
-$_SESSION['username_usu'] = "";
-$_SESSION['telefone_usu'] = "";
-$_SESSION['email_usu'] = "";
-$_SESSION['email_usu_confirm'] = "";
-$_SESSION['senha_usu'] = "";
-$_SESSION['senha_usu_confirm'] = "";
-$_SESSION['perfil_usu'] = "";
-$_SESSION['id_emp'] = "";
+
 
 //recebendo valores, verificando a empresa que foi selecionada e dando a opção dos departamentos
 $nome_usu = filter_input(INPUT_POST, 'nome_usu');

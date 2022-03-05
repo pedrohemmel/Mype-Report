@@ -50,6 +50,12 @@ class DepartamentosDaoMysql implements DepartamentosDAO {
         return $array;
     }
 
+    public function verifyRow() {
+        $sql = $this->pdo->query("SELECT * FROM tb_departamentos;");
+
+        return $sql->rowCount() > 0;
+    }
+
     public function verifyRowByEmpId($id_emp) {
         $id = $id_emp;
 
