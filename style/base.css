@@ -43,6 +43,10 @@
     font-size: 1.5em;
 }
 
+.background-white-color {
+    background-color: #fff;
+}
+
 .background-primary-color {
     background-color: #843aad;
 }

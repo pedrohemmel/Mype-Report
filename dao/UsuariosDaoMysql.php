@@ -10,6 +10,28 @@ class UsuariosDaoMysql implements UsuariosDAO {
         $this->pdo = $drivers;
     }
 
+    public function addUsuarios(Usuarios $u) {
+        $sql = $this->pdo->prepare('INSERT INTO 
+        tb_usuarios(id_emp, id_dpto, nome_usu, username_usu, email_usu, telefone_usu, perfil_usu, senha_usu, situacao_usu, recupera_senha_usu)
+            VALUES
+        (:id_emp, :id_dpto, :nome_usu, :username_usu, :email_usu, :telefone_usu, :perfil_usu, :senha_usu, :situacao_usu, :recupera_senha_usu);');
+
+        $sql->bindValue(':id_emp', $u->getIdEmp());
+        $sql->bindValue(':id_dpto', $u->getIdDpto()); 
+        $sql->bindValue(':nome_usu', $u->getNomeUsu());
+        $sql->bindValue(':username_usu', $u->getUsernameUsu());
+        $sql->bindValue(':email_usu', $u->getEmailUsu());
+        $sql->bindValue(':telefone_usu', $u->getTelefoneUsu());
+        $sql->bindValue(':perfil_usu', $u->getPerfilUsu());
+        $sql->bindValue(':senha_usu', $u->getSenhaUsu());
+        $sql->bindValue(':situacao_usu', $u->getSituacaoUsu());
+        $sql->bindValue(':recupera_senha_usu', $u->getRecuperarSenhaUsu());
+        $sql->execute();
+
+
+        return $u;
+    }
+
     public function findAll() {
         $array = [];
 

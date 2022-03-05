@@ -49,7 +49,7 @@ $perfil_usu = filter_input(INPUT_POST, 'perfil_usu');
 $id_emp = filter_input(INPUT_POST, 'id_emp');
 $situacao = filter_input(INPUT_POST, 'situacao_usu');
 
-
+//atribuindo variaveis a sessoes para passagem de telas
 $_SESSION['nome_usu'] = $nome_usu;
 $_SESSION['username_usu'] = $username_usu;
 $_SESSION['telefone_usu'] = $telefone_usu;
@@ -72,7 +72,7 @@ $classeDpto = 'displayNone';
 
 if(!empty($_SESSION['perfil_usu'])) {
     if($_SESSION['perfil_usu'] = 'usu') {
-        $classeDpto = 'displayBlock';
+        $classeDpto = 'fundoPretoAbsolute';
     }
 }
 
@@ -138,8 +138,8 @@ echo $_SESSION['id_emp'];
         </form>
     </div>
 
-    <section class="<?=$classeDpto?> fundoPretoAbsolute">
-        <form method="POST" action="../cadastrar/cadastrarUsuario_action.php">
+    <section class="<?=$classeDpto?> ">
+        <form class="background-white-color padding-10-px" method="POST" action="../cadastrar/cadastrarUsuario_action.php">
             <label for="">Selecione o departamento em que o usuário vai se encontrar no sistema.</label>
             <select name="id_dpto">
                 <?php
@@ -155,6 +155,7 @@ echo $_SESSION['id_emp'];
                     
                     endforeach;
                 ?>
+                <input type="submit" value="Cadastrar-se">
             </select>
         </form>
     </section>

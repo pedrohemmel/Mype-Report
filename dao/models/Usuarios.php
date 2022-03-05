@@ -104,6 +104,8 @@ class Usuarios {
 
 interface UsuariosDAO {
 
+    public function addUsuarios(Usuarios $u);
+
     public function findAll();
 
     public function findAllAdm();
