@@ -14,7 +14,9 @@ require "../dao/DepartamentosDaoMysql.php";
 $DepartamentosDao = new DepartamentosDaoMysql($pdo);
 $EmpresasDao = new EmpresasDaoMysql($pdo);
 
+//verificando se exite uma empresa cadastrada para permitir o cadastro de novos usuarios
 if(!$EmpresasDao->verifyRow()) {
+    //verificando se exite um departamento cadastrada para permitir o cadastro de novos usuarios
     if(!$DepartamentosDao->verifyRow()) {
         $_SESSION['erroCadUsu'] = 'Erro ao cadastrar usuário, é necessário criar um departamento primeiro para que possa cadastrar um usuário, entre em uma empresa e cadastre os departamentos da mesma.';
         $_SESSION['erroCadUsuCrypt'] = password_hash($_SESSION['erroCadUsu'], PASSWORD_DEFAULT);
@@ -86,9 +88,6 @@ if(!empty($_SESSION['perfil_usu'])) {
     }
 }
 
-echo $classeDpto;
-echo $_SESSION['id_emp'];
-
 
 
 ?>
@@ -104,6 +103,43 @@ echo $_SESSION['id_emp'];
     <link rel="stylesheet" href="../style/base.css"/>
 </head>
 <body>
+    <?php
+        $classeMensagemCad = 'displayNone';
+        if(!empty($id_emp)):
+            if(!$DepartamentosDao->verifyRowByEmpId($id_emp)):
+                $classeMensagemCad = 'displayBlkRed';
+                $mensagem = 'Essa empresa não possui departamentos cadastradas, vá até "Empresas", selecione uma empresa e crie os departamentos da mesma.';
+    ?>
+        <p class="<?=$classeMensagemCad?>"><?=$mensagem?></p>
+    <?php
+            else:
+    ?>
+        <section class="<?=$classeDpto?> ">
+            <form class="background-white-color padding-10-px" method="POST" action="../cadastrar/cadastrarUsuario_action.php">
+                <label for="">Selecione o departamento em que o usuário vai se encontrar no sistema.</label>
+                <select name="id_dpto">
+                    <?php
+                    if($DepartamentosDao->verifyRowByEmpId($id_emp)) {
+                        $departamentos = $DepartamentosDao->findByIdEmp($id_emp);
+                    } else {
+                        
+                    }
+                        foreach($departamentos as $getDepartamentos):
+                    ?>
+                    <option value="<?=$getDepartamentos->getIdDpto();?>"><?=$getDepartamentos->getNomeDpto();?></option>
+                    <?php
+                        
+                        endforeach;
+                    ?>
+                    <input type="submit" value="Cadastrar-se">
+                </select>
+            </form>
+        </section>
+    <?php
+            endif;
+        endif;
+    ?>
+    
     <!--Formulário de cadastro do usuário administrador-->
     <div class="container">
         <form method="POST" action="">
@@ -148,27 +184,7 @@ echo $_SESSION['id_emp'];
         </form>
     </div>
 
-    <section class="<?=$classeDpto?> ">
-        <form class="background-white-color padding-10-px" method="POST" action="../cadastrar/cadastrarUsuario_action.php">
-            <label for="">Selecione o departamento em que o usuário vai se encontrar no sistema.</label>
-            <select name="id_dpto">
-                <?php
-                if($DepartamentosDao->verifyRowByEmpId($id_emp)) {
-                    $departamentos = $DepartamentosDao->findByIdEmp($id_emp);
-                } else {
-                    
-                }
-                    foreach($departamentos as $getDepartamentos):
-                ?>
-                <option value="<?=$getDepartamentos->getIdDpto();?>"><?=$getDepartamentos->getNomeDpto();?></option>
-                <?php
-                    
-                    endforeach;
-                ?>
-                <input type="submit" value="Cadastrar-se">
-            </select>
-        </form>
-    </section>
+    
     
     <script src="../js/cadastrarAdmScript.js"></script>
 </body>
