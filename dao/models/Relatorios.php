@@ -61,6 +61,8 @@ interface RelatoriosDAO {
     public function verifyRowByEmpId($id_emp);
 
     public function verifyRowByLinkRel($link_rel);
+
+    public function updateRelatorios(Relatorios $r);
 }
 
 ?>

@@ -70,7 +70,7 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                     <div class="col-md-6 col-12 padding-10-px background-secondary-color"><?=$nome_rel?></div>
                     <div class="col-md-6 col-12 background-primary-color padding-10-px color-white">Link</div>
                     <div class="col-md-6 col-12 padding-10-px background-secondary-color"><?=$link_rel?></div>
-                    <div class="col-12 background-primary-color padding-10-px" ><a href="../editar/editarRelatorio.php?id_rel=<?=$id_rel?>" class="color-white text-align-center">Alterar Dados</a></div>
+                    <div class="col-12 background-primary-color padding-10-px" ><a href="../editar/editarRelatorio.php?id_rel=<?=$_SESSION['id_rel'];?>" class="color-white text-align-center">Alterar Dados</a></div>
 
                 </div>
 

@@ -93,6 +93,23 @@ class RelatoriosDaoMysql implements RelatoriosDAO {
 
         return $sql->rowCount() > 0;
     }
+
+    public function updateRelatorios(Relatorios $r) {
+        $sql = $this->pdo->prepare("UPDATE tb_relatorios SET 
+        nome_rel = :nome_rel,
+        link_rel = :link_rel, 
+        situacao_rel = :situacao_rel 
+        WHERE id_rel = :id_rel;");
+            
+        $sql->bindValue(":id_rel", $r->getIdRel());
+        $sql->bindValue(":nome_rel", $r->getNomeRel());
+        $sql->bindValue(":link_rel", $r->getLinkRel());
+        $sql->bindValue(":situacao_rel", $r->getSituacaoRel());
+        $sql->execute();
+
+
+        return $r;
+    }
 }
 
 ?>
