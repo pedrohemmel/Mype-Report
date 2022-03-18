@@ -11,10 +11,14 @@ require '../config.php';
 require '../dao/EmpresasDaoMysql.php';
 require '../dao/RelatoriosDaoMysql.php';
 require '../dao/IndicadoresDaoMysql.php';
+require '../dao/UsuariosDaoMysql.php';
+require '../dao/DepartamentosDaoMysql.php';
 
 $IndicadoresDao = new IndicadoresDaoMysql($pdo);
 $EmpresasDao = new EmpresasDaoMysql($pdo);
 $RelatoriosDao = new RelatoriosDaoMysql($pdo);
+$UsuariosDao = new UsuariosDaoMysql($pdo);
+$DepartamentosDao = new DepartamentosDaoMysql($pdo);
 
 $_SESSION['id_rel'] = filter_input(INPUT_GET, 'id_rel');
 
@@ -22,8 +26,10 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
     $relatorios = $RelatoriosDao->findById($_SESSION['id_rel']);
     foreach($relatorios as $getRelatorios) {
         $id_rel = $getRelatorios->getIdRel();
+        $id_emp = $getRelatorios->getIdEmp();
         $nome_rel = $getRelatorios->getNomeRel();
         $link_rel = $getRelatorios->getLinkRel();  
+        $situacao_rel = $getRelatorios->getSituacaoRel();
     }
     
 } else {
@@ -70,6 +76,8 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                     <div class="col-md-6 col-12 padding-10-px background-secondary-color"><?=$nome_rel?></div>
                     <div class="col-md-6 col-12 background-primary-color padding-10-px color-white">Link</div>
                     <div class="col-md-6 col-12 padding-10-px background-secondary-color"><?=$link_rel?></div>
+                    <div class="col-md-6 col-12 background-primary-color padding-10-px color-white">Situação</div>
+                    <div class="col-md-6 col-12 padding-10-px background-secondary-color"><?=$situacao_rel?></div>
                     <div class="col-12 background-primary-color padding-10-px" ><a href="../editar/editarRelatorio.php?id_rel=<?=$_SESSION['id_rel'];?>" class="color-white text-align-center">Alterar Dados</a></div>
 
                 </div>
@@ -82,37 +90,91 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                 
             </div>
             <div class="col-md-6 col-12">
-                <table border=1>
+                <table>
                     <thead class="background-primary-color">
                         <tr>
                             <th scope="col" class="padding-10-px color-white">Id</th>
                             <th scope="col" class="padding-10-px color-white">Usuario</th>
                             <th scope="col" class="padding-10-px color-white">Departamento</th>
+                            <th scope="col" class="padding-10-px color-white">Ações</th>
                         </tr>
                     </thead>
                     <?php   
-                    
+                        if($UsuariosDao->verifyRowByEmpId($id_emp)):
+                            $usuarios = $UsuariosDao->findUsuByEmpId($id_emp);
+                            foreach($usuarios as $getUsuarios):
                     ?>
                         <tbody class="background-secondary-color">
                             <tr>
-                                <td class="padding-10-px"></td>
-                                <td class="padding-10-px"></td>
-                                <td class="padding-10-px"></td>
+                                <td class="padding-10-px"><?=$getUsuarios->getIdUsu();?></td>
+                                <td class="padding-10-px"><?=$getUsuarios->getUsernameUsu();?></td>
+                                <?php
+                                    $departamentos = $DepartamentosDao->findById($getUsuarios->getIdDpto());
+                                    foreach($departamentos as $getDepartamentos):
+                                ?>
+                                <td class="padding-10-px"><?=$getDepartamentos->getNomeDpto();?></td>
+                                <td class="background-primary-color padding-10-px"><a class="color-white" href="../cadastrar/cadastrarIndicador.php?id_usu=<?=$getUsuarios->getIdUsu();?>&id_rel=<?=$id_rel?>">Vincular</a></td>
                             </tr>
                                     
                         </tbody>
                     <?php       
-                            
+                                    endforeach;
+                            endforeach;
+                        else: 
                     ?>
+                        
                         <span>Não há usuários nessa empresa no momento.</span>
                     <?php
-                        
+                        endif;
                     ?>
                     
                 </table>
             </div>
             <div class="col-md-6 col-12">
-                
+            <table>
+                    <thead class="background-primary-color">
+                        <tr>
+                            <th scope="col" class="padding-10-px color-white">Id</th>
+                            <th scope="col" class="padding-10-px color-white">Usuario</th>
+                            <th scope="col" class="padding-10-px color-white">Departamento</th>
+                            <th scope="col" class="padding-10-px color-white">Ações</th>
+                        </tr>
+                    </thead>
+                    <?php   
+                        if($IndicadoresDao->verifyRowByRelId($id_rel)):
+                            $indicadores = $IndicadoresDao->findByRelId($id_rel);
+                            foreach($indicadores as $getIndicadores):
+                    ?>
+                        <tbody class="background-secondary-color">
+                            <tr>
+                                <td class="padding-10-px"><?=$getIndicadores->getIdInd();?></td>
+                                <?php
+                                    $usuarios = $UsuariosDao->findById($getIndicadores->getIdUsu());
+                                    foreach($usuarios as $getUsuarios):
+                                ?>
+                                <td class="padding-10-px"><?=$getUsuarios->getUsernameUsu();?></td>
+                                <?php
+                                    $departamentos = $DepartamentosDao->findById($getUsuarios->getIdDpto());
+                                    foreach($departamentos as $getDepartamentos):
+                                ?>
+                                <td class="padding-10-px"><?=$getDepartamentos->getNomeDpto();?></td>
+                                <td class="background-primary-color padding-10-px"><a class="color-white" href="../cadastrar/cadastrarIndicador.php?id_usu=<?=$getUsuarios->getIdUsu();?>&id_rel=<?=$id_rel?>">Vincular</a></td>
+                            </tr>
+                                    
+                        </tbody>
+                    <?php       
+                                    endforeach;
+                                    endforeach;
+                            endforeach;
+                        else: 
+                    ?>
+                        
+                        <span>Não há usuários nessa empresa no momento.</span>
+                    <?php
+                        endif;
+                    ?>
+                    
+                </table>
             </div>
         </div>
         

@@ -29,6 +29,27 @@ class DepartamentosDaoMysql implements DepartamentosDAO {
         
     }
 
+    public function findById($id_dpto) {
+        $id = $id_dpto;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_departamentos WHERE id_dpto = '".$id."';");
+
+        if($sql->rowCount() > 0) {
+            $data  = $sql->fetchAll();
+            foreach($data as $item) {
+                $d = new Departamentos;
+                $d->setIdDpto($item['id_dpto']);
+                $d->setIdEmp($item['id_emp']);
+                $d->setNomeDpto($item['nome_dpto']);
+                $d->setCentroDCustoDpto($item['centro_dcusto_dpto']);
+                
+    
+                $array[] = $d;
+            }
+        }
+        return $array;
+    }
+
     public function findByIdEmp($id_emp) {
         $id = $id_emp;
 

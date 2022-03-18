@@ -45,6 +45,8 @@ interface DepartamentosDAO {
 
     public function findAll();
 
+    public function findById($id_dpto);
+
     public function findByIdEmp($id_emp);
 
     public function verifyRow();

@@ -212,30 +212,37 @@ if(!empty($chaveDispSections)) {
                                     <tr class="<?=$linkAdministrador?>">
                                         <td class="padding-10-px"><a  class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['administradorGruposAcessoCrypt']?>">Administrador</a></td>
                                     </tr>
+
                                     <tr class="<?=$classeAdministradorGruposAcesso?>">
                                         <td class="padding-10-px"><a  class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaAdministradorGruposAcessoCrypt']?>">Administrador</a></td>
                                     </tr>
+
                                     <?php foreach($usuariosAdministrador as $getUsuariosAdministrador):?>
                                         <tr class="<?=$classeAdministradorGruposAcesso?>">
                                             <td class="padding-10-px"><a  class="color-black text-decoration-none" i style="padding-left: 50px" href=""><?=$getUsuariosAdministrador->getUsernameUsu();?> | <?=$getUsuariosAdministrador->getEmailUsu();?></a></td>
                                         </tr>
                                     <?php endforeach; ?>
+
                                     <?php foreach($usuarioAdministrador as $getUsuarioAdministrador):?>
                                         <tr class="<?=$classeAdministradorGruposAcesso?>">
                                             <td class="padding-10-px"><a  class="color-black text-decoration-none" style="padding-left: 50px" href=""><?=$getUsuarioAdministrador->getUsernameAdm();?> | <?=$getUsuarioAdministrador->getEmailAdm();?> <span style="color: #00f; font-weight: 600;">MASTER</span></a></td>
                                         </tr>
                                     <?php endforeach; ?>
+
                                     <tr class="<?=$linkUsuarios?>">
                                         <td class="padding-10-px"><a class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['usuariosGruposAcessoCrypt']?>">Usuário</a></td>
                                     </tr>
+
                                     <tr class="<?=$classeUsuariosGruposAcesso?>">
                                         <td class="padding-10-px"><a class="color-black text-decoration-none" href="../verificar/registroEditUsuarios_action.php?chave=<?=$_SESSION['fechaUsuariosGruposAcessoCrypt']?>">Usuário</a></td>
                                     </tr>
+
                                     <?php foreach($usuarios as $getUsuarios):?>
                                     <tr class="<?=$classeUsuariosGruposAcesso?>">
                                         <td class="padding-10-px"><a class="color-black text-decoration-none" style="padding-left: 50px" href=""><?=$getUsuarios->getUsernameUsu();?> | <?=$getUsuarios->getEmailUsu();?></a></td>
                                     </tr>
                                     <?php endforeach; ?>
+
                                 </tbody>
                             </table>
 

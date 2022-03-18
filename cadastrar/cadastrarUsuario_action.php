@@ -20,6 +20,7 @@ $senha = password_hash($_SESSION['senha_usu'], PASSWORD_DEFAULT);
 
 if($_SESSION['nome_usu'] && $_SESSION['username_usu'] && $_SESSION['telefone_usu'] && $_SESSION['email_usu'] && $_SESSION['email_usu_confirm'] && $senha && $_SESSION['senha_usu_confirm'] && $_SESSION['perfil_usu'] && $_SESSION['situacao_usu'] && $_SESSION['id_emp'] && $id_dpto) {
     if($_SESSION['email_usu'] == $_SESSION['email_usu_confirm'] && password_verify($_SESSION['senha_usu_confirm'], $senha)) {
+            
         $u = new Usuarios;
         $u->setIdEmp($_SESSION['id_emp']);
         $u->setIdDpto($id_dpto);

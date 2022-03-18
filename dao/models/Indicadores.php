@@ -34,6 +34,12 @@ class Indicadores {
 
 interface IndicadoresDAO {
     public function addIndicadores(Indicadores $i);
+
+    public function findByRelId($id_rel);
+
+    public function verifyRowByUsuId($id_usu);
+
+    public function verifyRowByRelId($id_rel);
 }
 
 ?>

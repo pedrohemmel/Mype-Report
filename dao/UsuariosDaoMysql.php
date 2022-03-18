@@ -59,6 +59,35 @@ class UsuariosDaoMysql implements UsuariosDAO {
         return $array;
     }
 
+    public function findById($id_usu) {
+        $array = [];
+
+        $id = $id_usu;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_usuarios WHERE id_usu = '".$id."';");
+
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetchAll();
+            foreach($data as $item) {
+                $uc = new Usuarios;
+                $uc->setIdUsu($item['id_usu']);
+                $uc->setIdEmp($item['id_emp']);
+                $uc->setIdDpto($item['id_dpto']);
+                $uc->setNomeUsu($item['nome_usu']);
+                $uc->setUsernameUsu($item['username_usu']);
+                $uc->setEmailUsu($item['email_usu']);
+                $uc->setTelefoneUsu($item['telefone_usu']);
+                $uc->setPerfilUsu($item['perfil_usu']);
+                $uc->setSituacaoUsu($item['situacao_usu']);
+                $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+        
+                $array[] = $uc;
+            }
+        
+        }
+        return $array;
+    }
+
     public function findAllAdm() {
         $array = [];
 
@@ -159,6 +188,41 @@ class UsuariosDaoMysql implements UsuariosDAO {
         return $array;
     }
 
+    public function findUsuByEmpId($id_emp) {
+        $id = $id_emp;
+        $array = [];
+
+        $sql = $this->pdo->query("SELECT * FROM tb_usuarios WHERE id_emp = '".$id."';");
+
+        if($sql->rowCount() > 0) {
+            $data = $sql->fetchAll();
+            foreach($data as $item) {
+                $uc = new Usuarios;
+                $uc->setIdUsu($item['id_usu']);
+                $uc->setIdEmp($item['id_emp']);
+                $uc->setIdDpto($item['id_dpto']);
+                $uc->setNomeUsu($item['nome_usu']);
+                $uc->setUsernameUsu($item['username_usu']);
+                $uc->setEmailUsu($item['email_usu']);
+                $uc->setTelefoneUsu($item['telefone_usu']);
+                $uc->setPerfilUsu($item['perfil_usu']);
+                $uc->setSituacaoUsu($item['situacao_usu']);
+                if($uc->getRecuperarSenhaUsu()) {
+                    $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                } else {
+                    $uc->setRecuperarSenhaUsu(""); 
+                }
+                
+        
+                $array[] = $uc;
+            }
+        
+        }
+
+        
+        return $array;
+    }
+
     public function verifyRowByEmail($email_usu) {
         $email = $email_usu;
 
@@ -171,6 +235,14 @@ class UsuariosDaoMysql implements UsuariosDAO {
         $username = $username_usu;
 
         $sql = $this->pdo->query("SELECT * FROM tb_usuarios where username_usu = '".$username."';");
+
+        return $sql->rowCount() > 0;
+    }
+
+    public function verifyRowByEmpId($id_emp) {
+        $id = $id_emp;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_usuarios where id_emp = '".$id."';");
 
         return $sql->rowCount() > 0;
     }

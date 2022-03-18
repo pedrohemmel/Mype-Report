@@ -108,15 +108,21 @@ interface UsuariosDAO {
 
     public function findAll();
 
+    public function findById($id_usu);
+
     public function findAllAdm();
 
     public function findAllUsu();
+
+    public function findUsuByEmpId($id_emp);
 
     public function findByUsernameOrEmail(Usuarios $u);
 
     public function verifyRowByEmail($email_usu);
 
     public function verifyRowByUsername($username_usu);
+
+    public function verifyRowByEmpId($id_emp);
 
     public function updateRecuperarSenha(Usuarios $u);
 }
