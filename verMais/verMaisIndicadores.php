@@ -111,6 +111,12 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                                 <?php
                                     $departamentos = $DepartamentosDao->findById($getUsuarios->getIdDpto());
                                     foreach($departamentos as $getDepartamentos):
+                                        if($IndicadoresDao->verifyRowByUsuId($getUsuarios->getIdUsu())):
+                                ?>
+                                <td class="padding-10-px"><?=$getDepartamentos->getNomeDpto();?></td>
+                                <td class="background-primary-color padding-10-px color-white">Já Vinculado</td>
+                                <?php
+                                        else:
                                 ?>
                                 <td class="padding-10-px"><?=$getDepartamentos->getNomeDpto();?></td>
                                 <td class="background-primary-color padding-10-px"><a class="color-white" href="../cadastrar/cadastrarIndicador.php?id_usu=<?=$getUsuarios->getIdUsu();?>&id_rel=<?=$id_rel?>">Vincular</a></td>
@@ -118,8 +124,9 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                                     
                         </tbody>
                     <?php       
+                                        endif;
                                     endforeach;
-                            endforeach;
+                                    endforeach;
                         else: 
                     ?>
                         
@@ -158,7 +165,7 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                                     foreach($departamentos as $getDepartamentos):
                                 ?>
                                 <td class="padding-10-px"><?=$getDepartamentos->getNomeDpto();?></td>
-                                <td class="background-primary-color padding-10-px"><a class="color-white" href="../cadastrar/cadastrarIndicador.php?id_usu=<?=$getUsuarios->getIdUsu();?>&id_rel=<?=$id_rel?>">Vincular</a></td>
+                                <td class="background-primary-color padding-10-px"><a class="color-white" href="../apagar/apagarIndicador.php?id_ind=<?=$getIndicadores->getIdInd();?>&id_rel=<?=$getRelatorios->getIdRel();?>">Desvincular</a></td>
                             </tr>
                                     
                         </tbody>
@@ -174,7 +181,7 @@ if($RelatoriosDao->verifyRowById($_SESSION['id_rel'])) {
                         endif;
                     ?>
                     
-                </table>
+                
             </div>
         </div>
         

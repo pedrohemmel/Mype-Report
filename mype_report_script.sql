@@ -62,7 +62,7 @@ telefone_usu char(14) not null unique,
 perfil_usu char(3) not null check(perfil_usu = 'adm' || perfil_usu = 'usu'),
 senha_usu varchar(100) not null,
 situacao_usu char(7) not null check(situacao_usu = 'ativo' || situacao_usu = 'inativo'),
-recupera_senha_usu varchar(100),
+recupera_senha_usu varchar(100) null,
 primary key(id_usu),
 foreign key(id_emp) references tb_empresas(id_emp),
 foreign key(id_dpto) references tb_departamentos(id_dpto));

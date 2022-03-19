@@ -37,9 +37,13 @@ interface IndicadoresDAO {
 
     public function findByRelId($id_rel);
 
+    public function verifyRowById($id_ind);
+
     public function verifyRowByUsuId($id_usu);
 
     public function verifyRowByRelId($id_rel);
+
+    public function deleteById($id_ind);
 }
 
 ?>

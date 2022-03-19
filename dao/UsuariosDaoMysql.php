@@ -50,7 +50,11 @@ class UsuariosDaoMysql implements UsuariosDAO {
                 $uc->setTelefoneUsu($item['telefone_usu']);
                 $uc->setPerfilUsu($item['perfil_usu']);
                 $uc->setSituacaoUsu($item['situacao_usu']);
-                $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                if($uc->getRecuperarSenhaUsu()) {
+                    $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                } else {
+                    $uc->setRecuperarSenhaUsu(""); 
+                }
         
                 $array[] = $uc;
             }
@@ -79,7 +83,11 @@ class UsuariosDaoMysql implements UsuariosDAO {
                 $uc->setTelefoneUsu($item['telefone_usu']);
                 $uc->setPerfilUsu($item['perfil_usu']);
                 $uc->setSituacaoUsu($item['situacao_usu']);
-                $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                if($uc->getRecuperarSenhaUsu()) {
+                    $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                } else {
+                    $uc->setRecuperarSenhaUsu(""); 
+                }
         
                 $array[] = $uc;
             }
@@ -108,7 +116,11 @@ class UsuariosDaoMysql implements UsuariosDAO {
                 $uc->setTelefoneUsu($item['telefone_usu']);
                 $uc->setPerfilUsu($item['perfil_usu']);
                 $uc->setSituacaoUsu($item['situacao_usu']);
-                $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                if($uc->getRecuperarSenhaUsu()) {
+                    $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+                } else {
+                    $uc->setRecuperarSenhaUsu(""); 
+                }
         
                 $array[] = $uc;
             }
@@ -182,6 +194,11 @@ class UsuariosDaoMysql implements UsuariosDAO {
             $uc->setPerfilUsu($item['perfil_usu']);
             $uc->setSenhaUsu($item['senha_usu']);
             $uc->setSituacaoUsu($item['situacao_usu']);
+            if($uc->getRecuperarSenhaUsu()) {
+                $uc->setRecuperarSenhaUsu($item['recuperar_senha_usu']);
+            } else {
+                $uc->setRecuperarSenhaUsu(""); 
+            }
     
             $array[] = $uc;
         }
@@ -212,14 +229,11 @@ class UsuariosDaoMysql implements UsuariosDAO {
                 } else {
                     $uc->setRecuperarSenhaUsu(""); 
                 }
-                
         
                 $array[] = $uc;
             }
         
         }
-
-        
         return $array;
     }
 

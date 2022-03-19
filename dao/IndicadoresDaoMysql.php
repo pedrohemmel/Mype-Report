@@ -43,6 +43,14 @@ class IndicadoresDaoMysql implements IndicadoresDAO {
         return $array;
     }
 
+    public function verifyRowById($id_ind) {
+        $id = $id_ind;
+
+        $sql = $this->pdo->query("SELECT * FROM tb_indicadores WHERE id_ind = '".$id."';");
+
+        return $sql->rowCount() > 0;
+    }
+
     public function verifyRowByUsuId($id_usu) {
         $id = $id_usu;
 
@@ -57,6 +65,14 @@ class IndicadoresDaoMysql implements IndicadoresDAO {
         $sql = $this->pdo->query("SELECT * FROM tb_indicadores WHERE id_rel = '".$id."';");
 
         return $sql->rowCount() > 0;
+    }
+
+    public function deleteById($id_ind) {
+        $id = $id_ind;
+
+        $sql = $this->pdo->prepare("DELETE FROM tb_indicadores WHERE id_ind = '".$id."'");
+
+        $sql->execute();
     }
     
 }
